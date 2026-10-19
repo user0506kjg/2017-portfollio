@@ -10,3 +10,6 @@ dist/
 # Deliberately excluded: this repository is public.
 JEAN-LUC_PINAS_Resume.pdf
 *.pdf
+
+# Vercel CLI link metadata
+.vercel/
