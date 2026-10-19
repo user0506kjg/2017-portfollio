@@ -1,0 +1,96 @@
+---
+import { nav, profile } from '../data/profile';
+import SectionAmbience from './SectionAmbience.astro';
+
+const year = 2017;
+const half = Math.ceil(nav.length / 2);
+const colA = nav.slice(0, half);
+const colB = nav.slice(half);
+---
+
+<footer
+  class="relative z-10 bg-cyber-dark py-16 border-t border-cyber-blue/20 overflow-hidden"
+>
+  <SectionAmbience />
+
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center mb-6 font-future">
+          <div
+            class="w-10 h-10 rounded-full bg-cyber-blue/20 border border-cyber-blue flex items-center justify-center glow"
+          >
+            <span class="text-cyber-blue text-xl font-bold">{profile.initial}</span>
+          </div>
+          <span class="ml-3 text-xl font-bold">
+            <span class="text-white">Jean-Luc</span>
+            <span class="text-cyber-blue"> Pinas</span>
+          </span>
+        </div>
+        <p class="text-gray-300 leading-relaxed">
+          {profile.role}. Building production-ready AI applications, autonomous agents, and
+          automation solutions with Python and modern AI technologies.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div class="grid grid-cols-2 gap-4 lg:ps-12">
+        <div>
+          <h3 class="text-lg font-bold text-cyber-blue mb-6 font-future">Explore</h3>
+          <ul class="space-y-3">
+            {
+              colA.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="text-gray-300 hover:text-cyber-blue transition-colors duration-200"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-cyber-blue mb-6 font-future">More</h3>
+          <ul class="space-y-3">
+            {
+              colB.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="text-gray-300 hover:text-cyber-blue transition-colors duration-200"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <!-- Availability -->
+      <div>
+        <h3 class="text-lg font-bold text-cyber-blue mb-6 font-future">Availability</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Open to senior AI engineering and LLM architecture work. Remote-first, contract or
+          permanent.
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 pt-8 border-t border-cyber-blue/10 flex flex-col sm:flex-row justify-between items-center gap-4"
+    >
+      <p class="text-gray-400 text-sm">
+        &copy; {year} {profile.name}. All rights reserved.
+      </p>
+      <p class="text-gray-500 text-xs font-future">
+        Built with Astro, Tailwind CSS &amp; Alpine.js
+      </p>
+    </div>
+  </div>
+</footer>

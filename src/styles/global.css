@@ -1,0 +1,366 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   Design tokens (Tailwind v4 CSS-first config)
+   ============================================================ */
+@theme {
+  --color-cyber-dark: #001a2c;
+  --color-cyber-blue: #00e5ff;
+  --color-cyber-light: #0af0ff;
+
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-future: 'Orbitron', ui-sans-serif, system-ui, sans-serif;
+
+  /* Ambient orb breathing — this utility was referenced but never defined
+     in the reference template, so every orb sat static. Defined here. */
+  --animate-pulse-slow: pulseSlow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-spin-slow: spin 20s linear infinite;
+
+  @keyframes pulseSlow {
+    0%,
+    100% {
+      opacity: 0.45;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1.12);
+    }
+  }
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+  body {
+    background-color: var(--color-cyber-dark);
+    background-image:
+      radial-gradient(circle at 25% 25%, #00e5ff1a, transparent 40%),
+      radial-gradient(circle at 75% 75%, #00e5ff1a, transparent 40%);
+    background-attachment: fixed;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Visible, on-brand focus ring for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--color-cyber-blue);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: #00e5ff40;
+    color: #fff;
+  }
+
+  /* Themed scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #001a2c;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #00e5ff40;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00e5ff80;
+  }
+}
+
+/* ============================================================
+   Signature effects
+   ============================================================ */
+@layer components {
+  /* Notched "cyber" button: bevelled top-left + bottom-right corners,
+     diagonal accent slashes, and a breathing neon shadow. */
+  .cyber-btn {
+    clip-path: polygon(
+      10px 0,
+      100% 0,
+      100% calc(100% - 10px),
+      calc(100% - 10px) 100%,
+      0 100%,
+      0 10px
+    );
+    animation: neonPulse 2s infinite;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cyber-btn::before,
+  .cyber-btn::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 1px;
+    background-color: currentColor;
+    transform: rotate(-45deg);
+  }
+  .cyber-btn::before {
+    top: 2px;
+    left: -4px;
+  }
+  .cyber-btn::after {
+    bottom: 2px;
+    right: -3px;
+  }
+
+  /* Sweeping sheen on hover */
+  .cyber-btn > .sheen {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 20%, #ffffff38 50%, transparent 80%);
+    transform: translateX(-120%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+  .cyber-btn:hover > .sheen {
+    transform: translateX(120%);
+  }
+
+  .glow {
+    box-shadow: 0 0 15px #00e5ff80;
+  }
+
+  .glow-sm {
+    box-shadow: 0 0 8px #00e5ff66;
+  }
+
+  .text-shadow-glow {
+    text-shadow: 0 0 10px #00e5ffb3;
+  }
+
+  /* The universal card: translucent fill, blurred backdrop, accent hairline
+     border that brightens on hover. Pair with `.card-shell` on a `group`. */
+  .card {
+    border: 1px solid #00e5ff33;
+    background-color: #001a2cb3;
+    backdrop-filter: blur(4px);
+    border-radius: 0.75rem;
+    position: relative;
+    height: 100%;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .group:hover .card {
+    border-color: #00e5ff80;
+  }
+
+  /* Hover halo sitting behind the card */
+  .card-halo {
+    position: absolute;
+    inset: 0;
+    background-color: #00e5ff1a;
+    filter: blur(12px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .group:hover .card-halo {
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes neonPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 10px #00e5ff80;
+  }
+  50% {
+    box-shadow:
+      0 0 20px #00e5ff,
+      0 0 30px #00e5ffb3;
+  }
+}
+
+@keyframes spinHologram {
+  0% {
+    transform: rotate(0) rotateX(70deg);
+  }
+  100% {
+    transform: rotate(360deg) rotateX(70deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ============================================================
+   Scroll-reveal system
+   Base state is `.reveal` (hidden); the Reveal component adds
+   `.is-visible` plus a direction class once it intersects.
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  animation-duration: 0.9s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible.fadeInUp {
+  animation-name: fadeInUp;
+}
+.reveal.is-visible.fadeInDown {
+  animation-name: fadeInDown;
+}
+.reveal.is-visible.fadeInLeft {
+  animation-name: fadeInLeft;
+}
+.reveal.is-visible.fadeInRight {
+  animation-name: fadeInRight;
+}
+
+/* Stagger delays. Both spellings are defined so that `delay-200` and
+   `delay200` behave identically — the reference template mixed the two
+   and silently lost every stagger on its projects grid. */
+.delay-100,
+.delay100 {
+  animation-delay: 0.1s;
+}
+.delay-200,
+.delay200 {
+  animation-delay: 0.2s;
+}
+.delay-300,
+.delay300 {
+  animation-delay: 0.3s;
+}
+.delay-400,
+.delay400 {
+  animation-delay: 0.4s;
+}
+.delay-500,
+.delay500 {
+  animation-delay: 0.5s;
+}
+.delay-600,
+.delay600 {
+  animation-delay: 0.6s;
+}
+.delay-700,
+.delay700 {
+  animation-delay: 0.7s;
+}
+.delay-800,
+.delay800 {
+  animation-delay: 0.8s;
+}
+.delay-900,
+.delay900 {
+  animation-delay: 0.9s;
+}
+.delay-1000,
+.delay1000 {
+  animation-delay: 1s;
+}
+
+/* ============================================================
+   Ambient canvas (replaces the reference template's 150 animated
+   fixed-position DOM nodes with a single compositor-friendly canvas)
+   ============================================================ */
+#ambient-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Reduced motion — the reference template had no such handling at all,
+   despite running a perpetual rAF loop and 150 looping animations.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* The WebGL field stays visible and keeps drifting, but its script slows
+     the simulation to a quarter speed under this preference rather than
+     hiding the layer outright. */
+
+  .cyber-btn {
+    animation: none;
+    box-shadow: 0 0 10px #00e5ff80;
+  }
+}
+
+/* ============================================================
+   Progressive enhancement: if JS never runs, reveal everything
+   rather than leaving the page blank.
+   ============================================================ */
+.no-js .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media print {
+  #ambient-canvas,
+  header,
+  #back-to-top {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+}

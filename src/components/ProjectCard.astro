@@ -1,0 +1,111 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Reveal from './Reveal.astro';
+
+/**
+ * Project images live in src/assets/projects so Astro can resize them and
+ * emit modern formats at build time. They're loaded eagerly and looked up by
+ * filename, which is what `project.image` stores.
+ */
+const assets = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/projects/*.{jpg,jpeg,png,webp}',
+  { eager: true }
+);
+
+const imageFor = (file: string) => {
+  const hit = Object.entries(assets).find(([path]) => path.endsWith(`/${file}`));
+  if (!hit) throw new Error(`Project image not found: src/assets/projects/${file}`);
+  return hit[1].default;
+};
+
+interface Props {
+  project: {
+    slug: string;
+    category: string;
+    tag: string;
+    image: string;
+    alt: string;
+    title: string;
+    description: string;
+    tech: string[];
+    source: string;
+  };
+  delay?: 100 | 200 | 300 | 400 | 500 | 600;
+  filterable?: boolean;
+}
+
+const { project, delay, filterable = false } = Astro.props;
+const img = imageFor(project.image);
+---
+
+<Reveal
+  delay={delay}
+  class="group relative h-full"
+  {...filterable
+    ? {
+        'x-show': `activeTab === 'all' || activeTab === '${project.tag}'`,
+        // Must be an empty string, not `true`: a spread boolean renders as
+        // ="true", which Alpine parses as a custom transition expression.
+        'x-transition.opacity.duration.300ms': '',
+      }
+    : {}}
+>
+  <div class="card-halo rounded-xl" aria-hidden="true"></div>
+
+  <article class="card overflow-hidden flex flex-col">
+    <!-- Photo panel. Sources vary in palette, so a cyan duotone unifies them
+         with the rest of the site; hover eases the tint off. -->
+    <div class="relative h-48 overflow-hidden border-b border-cyber-blue/20">
+      <Image
+        src={img}
+        alt={project.alt}
+        widths={[400, 800]}
+        sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
+        class="w-full h-full object-cover grayscale contrast-110 brightness-75 transition-transform duration-500 group-hover:scale-110"
+        loading="lazy"
+        decoding="async"
+      />
+      <div
+        class="absolute inset-0 bg-cyber-blue/45 mix-blend-color transition-opacity duration-500 group-hover:opacity-50 pointer-events-none"
+        aria-hidden="true"
+      >
+      </div>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-cyber-dark via-cyber-dark/25 to-transparent pointer-events-none"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div
+        class="absolute top-4 right-4 px-3 py-1 bg-cyber-dark/90 backdrop-blur-sm rounded-full border border-cyber-blue/30 text-xs text-cyber-blue font-future"
+      >
+        {project.category}
+      </div>
+    </div>
+
+    <div class="p-6 flex flex-col grow">
+      <h3 class="text-xl font-bold mb-3 text-cyber-blue font-future leading-snug">
+        {project.title}
+      </h3>
+      <p class="text-gray-300 mb-4 leading-relaxed grow">{project.description}</p>
+
+      <div class="flex flex-wrap gap-2 mb-4">
+        {
+          project.tech.map((t) => (
+            <span class="px-2 py-1 bg-cyber-blue/10 border border-cyber-blue/20 rounded-md text-xs text-cyber-blue">
+              {t}
+            </span>
+          ))
+        }
+      </div>
+
+      <p
+        class="text-gray-500 text-xs pt-4 border-t border-cyber-blue/10 flex items-start gap-2"
+      >
+        <i class="fas fa-briefcase mt-0.5 text-cyber-blue/50" aria-hidden="true"></i>
+        <span>{project.source}</span>
+      </p>
+    </div>
+  </article>
+</Reveal>

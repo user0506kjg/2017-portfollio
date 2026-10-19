@@ -1,0 +1,27 @@
+---
+import { stats } from '../data/profile';
+import Reveal from './Reveal.astro';
+---
+
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+  {
+    stats.map((stat, i) => (
+      <Reveal
+        delay={((i + 1) * 100) as 100 | 200 | 300 | 400}
+        class="group relative text-center"
+      >
+        <div class="card-halo rounded-xl" aria-hidden="true" />
+        <div class="card p-6">
+          <h3
+            class="text-3xl md:text-4xl font-bold text-cyber-blue font-future text-shadow-glow"
+            x-data={`counter(${stat.value}, 2)`}
+            x-intersect.once="start"
+          >
+            <span x-text="current">0</span>{stat.suffix}
+          </h3>
+          <p class="text-gray-400 text-sm mt-2">{stat.label}</p>
+        </div>
+      </Reveal>
+    ))
+  }
+</div>

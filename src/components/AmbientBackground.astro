@@ -1,0 +1,269 @@
+---
+/**
+ * WebGL ambient background: a drifting 3D particle field rendered with three.js.
+ *
+ * Replaces the earlier 2D canvas. Two depth layers give real parallax, the
+ * camera eases toward the pointer, and exponential fog sinks distant particles
+ * into the page background so the field has no visible far edge.
+ *
+ * It is deliberately cheap: one draw call per layer, additive points with a
+ * procedural sprite (no texture fetch), DPR capped at 2, and the loop stops
+ * whenever the tab is hidden. If WebGL is unavailable the canvas simply stays
+ * empty and the CSS body gradient shows through.
+ */
+---
+
+<canvas id="ambient-canvas" aria-hidden="true"></canvas>
+
+<script>
+  /**
+   * three.js is ~130 KB gzipped — far too much to sit on the critical path for
+   * a decorative layer. It is dynamic-imported during idle time, so it lands in
+   * its own chunk fetched only after the page is usable, and is skipped
+   * entirely on Save-Data connections or without WebGL.
+   */
+  const canvas = document.getElementById('ambient-canvas') as HTMLCanvasElement | null;
+
+  const saveData =
+    (navigator as unknown as { connection?: { saveData?: boolean } }).connection?.saveData ===
+    true;
+
+  const webglOk = (() => {
+    try {
+      const c = document.createElement('canvas');
+      return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch {
+      return false;
+    }
+  })();
+
+  async function start() {
+    if (!canvas) return;
+
+    const {
+      AdditiveBlending,
+      BufferAttribute,
+      BufferGeometry,
+      Color,
+      FogExp2,
+      PerspectiveCamera,
+      Points,
+      Scene,
+      ShaderMaterial,
+      WebGLRenderer,
+    } = await import('three');
+    type WebGLRenderer = InstanceType<typeof WebGLRenderer>;
+
+    // The site honours reduced motion elsewhere; here the field still moves so
+    // the background isn't dead, just considerably slower.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const speedFor = () => (reduceMotion.matches ? 0.25 : 1);
+
+    let renderer: WebGLRenderer | null = null;
+    try {
+      renderer = new WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: false,
+        powerPreference: 'low-power',
+      });
+    } catch {
+      renderer = null; // context creation refused: leave the CSS gradient alone
+    }
+
+    if (renderer) {
+      const BG = 0x001a2c;
+      const CYAN = 0x00e5ff;
+
+      const scene = new Scene();
+      scene.fog = new FogExp2(BG, 0.0016);
+
+      const camera = new PerspectiveCamera(62, 1, 1, 1600);
+      camera.position.set(0, 0, 260);
+
+      /** One layer of points: count, spread, size range, colour, opacity. */
+      const makeLayer = (
+        count: number,
+        spread: { x: number; y: number; z: number },
+        size: [number, number],
+        color: number,
+        opacity: number,
+        drift: number
+      ) => {
+        const pos = new Float32Array(count * 3);
+        const scale = new Float32Array(count);
+        const phase = new Float32Array(count);
+
+        for (let i = 0; i < count; i++) {
+          pos[i * 3] = (Math.random() - 0.5) * spread.x;
+          pos[i * 3 + 1] = (Math.random() - 0.5) * spread.y;
+          pos[i * 3 + 2] = -Math.random() * spread.z;
+          scale[i] = size[0] + Math.random() * (size[1] - size[0]);
+          phase[i] = Math.random() * Math.PI * 2;
+        }
+
+        const geo = new BufferGeometry();
+        geo.setAttribute('position', new BufferAttribute(pos, 3));
+        geo.setAttribute('aScale', new BufferAttribute(scale, 1));
+        geo.setAttribute('aPhase', new BufferAttribute(phase, 1));
+
+        const mat = new ShaderMaterial({
+          transparent: true,
+          depthWrite: false,
+          blending: AdditiveBlending,
+          uniforms: {
+            uTime: { value: 0 },
+            uDpr: { value: 1 },
+            uColor: { value: new Color(color) },
+            uOpacity: { value: opacity },
+            uDrift: { value: drift },
+            uSpreadZ: { value: spread.z },
+          },
+          vertexShader: `
+            uniform float uTime;
+            uniform float uDpr;
+            uniform float uDrift;
+            uniform float uSpreadZ;
+            attribute float aScale;
+            attribute float aPhase;
+            varying float vTwinkle;
+            varying float vDepth;
+
+            void main() {
+              vec3 p = position;
+
+              // Drift toward the camera and wrap around, so the field never
+              // empties out.
+              p.z = mod(p.z + uTime * uDrift, uSpreadZ) - uSpreadZ;
+              // Gentle lateral sway, de-synchronised by each point's phase.
+              p.x += sin(uTime * 0.11 + aPhase) * 6.0;
+              p.y += cos(uTime * 0.09 + aPhase * 1.3) * 5.0;
+
+              vec4 mv = modelViewMatrix * vec4(p, 1.0);
+              gl_Position = projectionMatrix * mv;
+
+              vTwinkle = 0.55 + 0.45 * sin(uTime * 1.1 + aPhase * 6.2831);
+              // Fade in from the far plane and out as points pass the camera.
+              vDepth = smoothstep(0.0, 180.0, -mv.z) * (1.0 - smoothstep(900.0, 1500.0, -mv.z));
+
+              gl_PointSize = aScale * uDpr * (260.0 / max(-mv.z, 1.0));
+            }
+          `,
+          fragmentShader: `
+            uniform vec3 uColor;
+            uniform float uOpacity;
+            varying float vTwinkle;
+            varying float vDepth;
+
+            void main() {
+              // Procedural soft disc - avoids shipping a sprite texture.
+              float d = length(gl_PointCoord - vec2(0.5));
+              if (d > 0.5) discard;
+              float a = smoothstep(0.5, 0.0, d);
+              gl_FragColor = vec4(uColor, a * a * vTwinkle * vDepth * uOpacity);
+            }
+          `,
+        });
+
+        const points = new Points(geo, mat);
+        points.frustumCulled = false;
+        scene.add(points);
+        return mat;
+      };
+
+      // Fewer points on small screens: less fill-rate on weaker GPUs.
+      const density = window.innerWidth < 768 ? 0.45 : 1;
+
+      const layers = [
+        // far, dense, dim
+        makeLayer(Math.round(900 * density), { x: 1800, y: 1200, z: 1400 }, [1.4, 3.2], CYAN, 0.5, 7),
+        // near, sparse, brighter white-ish highlights
+        makeLayer(Math.round(220 * density), { x: 1400, y: 900, z: 900 }, [2.4, 5.5], 0xbdf4ff, 0.75, 16),
+      ];
+
+      // Pointer parallax, eased.
+      const pointer = { x: 0, y: 0 };
+      const target = { x: 0, y: 0 };
+      window.addEventListener(
+        'pointermove',
+        (e) => {
+          target.x = (e.clientX / window.innerWidth - 0.5) * 2;
+          target.y = (e.clientY / window.innerHeight - 0.5) * 2;
+        },
+        { passive: true }
+      );
+
+      const resize = () => {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        renderer!.setPixelRatio(dpr);
+        renderer!.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        for (const m of layers) m.uniforms.uDpr.value = dpr;
+      };
+      resize();
+
+      let resizeTimer = 0;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(resize, 180);
+      });
+
+      let raf = 0;
+      let last = performance.now();
+      let elapsed = 0;
+
+      const frame = (now: number) => {
+        const dt = Math.min((now - last) / 1000, 0.05);
+        last = now;
+        elapsed += dt * speedFor();
+
+        pointer.x += (target.x - pointer.x) * 0.04;
+        pointer.y += (target.y - pointer.y) * 0.04;
+        camera.position.x = pointer.x * 34;
+        camera.position.y = -pointer.y * 24;
+        camera.lookAt(0, 0, -300);
+
+        for (const m of layers) m.uniforms.uTime.value = elapsed;
+
+        renderer!.render(scene, camera);
+        raf = requestAnimationFrame(frame);
+      };
+
+      const play = () => {
+        if (!raf) {
+          last = performance.now();
+          raf = requestAnimationFrame(frame);
+        }
+      };
+      const pause = () => {
+        if (raf) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+      };
+
+      play();
+      document.addEventListener('visibilitychange', () => (document.hidden ? pause() : play()));
+
+      // Free GPU resources on navigation (Astro view transitions / bfcache).
+      window.addEventListener('pagehide', () => {
+        pause();
+        for (const m of layers) m.dispose();
+        renderer!.dispose();
+      });
+    }
+  }
+
+  if (canvas && webglOk && !saveData) {
+    if ('requestIdleCallback' in window) {
+      (window as Window & typeof globalThis).requestIdleCallback(() => void start(), {
+        timeout: 2500,
+      });
+    } else {
+      setTimeout(() => void start(), 1200);
+    }
+  }
+</script>

@@ -1,0 +1,45 @@
+---
+/**
+ * Scroll-reveal wrapper. Renders a single element that fades/slides in the
+ * first time it enters the viewport.
+ *
+ * Unlike the reference template this does not depend on Alpine, so content
+ * reveals even if Alpine fails to load, and the delay class names are
+ * generated consistently.
+ */
+interface Props {
+  direction?: 'up' | 'down' | 'left' | 'right';
+  delay?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 1000;
+  as?: string;
+  class?: string;
+  threshold?: number;
+  [key: string]: unknown;
+}
+
+const {
+  direction = 'up',
+  delay,
+  as: Tag = 'div',
+  class: className = '',
+  threshold = 0.15,
+  ...rest
+} = Astro.props;
+
+const dirClass = {
+  up: 'fadeInUp',
+  down: 'fadeInDown',
+  left: 'fadeInLeft',
+  right: 'fadeInRight',
+}[direction];
+
+const delayClass = delay ? ` delay-${delay}` : '';
+---
+
+<Tag
+  class:list={['reveal', dirClass, delayClass.trim(), className]}
+  data-reveal
+  data-threshold={threshold}
+  {...rest}
+>
+  <slot />
+</Tag>

@@ -1,0 +1,159 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Hero from '../components/Hero.astro';
+import Counters from '../components/Counters.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import SectionAmbience from '../components/SectionAmbience.astro';
+import Reveal from '../components/Reveal.astro';
+import CyberButton from '../components/CyberButton.astro';
+import { coreStack, differentiators, profile, projects } from '../data/profile';
+
+const featured = projects.slice(0, 6);
+---
+
+<MainLayout>
+  <Hero />
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="bg-cyber-dark/60 py-24 relative overflow-hidden">
+    <SectionAmbience fade="both" />
+
+    <div class="max-w-7xl mx-auto px-6 relative">
+      <SectionHeading lead="About" accent="Me" />
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
+        <Reveal direction="left">
+          <h3 class="text-2xl font-bold mb-5 text-cyber-blue font-future">
+            Engineering-led AI development
+          </h3>
+          <p class="text-gray-300 mb-5 leading-relaxed">{profile.summary}</p>
+          <p class="text-gray-300 leading-relaxed">{profile.summaryCont}</p>
+        </Reveal>
+
+        <Reveal direction="right" delay={200}>
+          <h3 class="text-2xl font-bold mb-5 text-cyber-blue font-future">Core Stack</h3>
+          <div class="flex flex-wrap gap-3 mb-8">
+            {
+              coreStack.map((tech) => (
+                <span class="px-4 py-2 bg-cyber-blue/10 border border-cyber-blue/20 rounded-md text-sm text-cyber-blue font-future hover:border-cyber-blue/50 hover:bg-cyber-blue/20 transition-all duration-300">
+                  {tech}
+                </span>
+              ))
+            }
+          </div>
+
+          <div class="group relative">
+            <div class="card-halo rounded-xl" aria-hidden="true"></div>
+            <div class="card p-6">
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 shrink-0 rounded-full bg-cyber-blue/20 border border-cyber-blue flex items-center justify-center glow"
+                >
+                  <i class="fas fa-graduation-cap text-cyber-blue" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-cyber-blue font-future mb-1">
+                    University of Cambridge
+                  </h4>
+                  <p class="text-gray-300 text-sm">
+                    MPhil in Advanced Computer Science &middot; BA in Computer Science
+                  </p>
+                  <a
+                    href="/about"
+                    class="text-cyber-blue text-sm font-future mt-3 inline-flex items-center gap-2 hover:gap-3 transition-all"
+                  >
+                    Full background
+                    <i class="fas fa-arrow-right text-xs" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+
+      <Counters />
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects" class="py-24 relative overflow-hidden">
+    <SectionAmbience fade="both" orbs={false} />
+
+    <div class="max-w-7xl mx-auto px-6 relative">
+      <SectionHeading
+        lead="Selected"
+        accent="Work"
+        subtitle="Case studies drawn from production systems I have designed and shipped across three engineering roles."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          featured.map((project, i) => (
+            <ProjectCard project={project} delay={(((i % 3) + 1) * 100) as 100 | 200 | 300} />
+          ))
+        }
+      </div>
+
+      <Reveal class="flex justify-center mt-14">
+        <CyberButton href="/projects" variant="outline">
+          All Work
+          <i class="fas fa-arrow-right text-sm" aria-hidden="true"></i>
+        </CyberButton>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section id="cta" class="bg-cyber-dark/50 py-24 relative overflow-hidden">
+    <SectionAmbience />
+    <div class="max-w-4xl mx-auto px-6 relative text-center">
+      <Reveal>
+        <h2 class="text-4xl lg:text-5xl font-bold mb-6 font-future leading-tight">
+          <span class="text-cyber-blue text-shadow-glow">Build</span> something intelligent
+        </h2>
+      </Reveal>
+      <Reveal delay={100}>
+        <p class="text-gray-300 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+          Whether you need an LLM integrated into an existing product, an agent workflow to
+          automate a multistep process, or a backend built to carry it — I can take it from
+          technical design through to production.
+        </p>
+      </Reveal>
+      <Reveal delay={200}>
+        <CyberButton href="/expertise">Explore My Expertise</CyberButton>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= WHY WORK WITH ME ================= -->
+  <section id="why" class="py-24 relative overflow-hidden">
+    <SectionAmbience fade="top" />
+
+    <div class="max-w-7xl mx-auto px-6 relative">
+      <SectionHeading
+        lead="Why Work"
+        accent="With Me"
+        subtitle="How I approach building AI systems that have to survive contact with production."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          differentiators.map((item, i) => (
+            <Reveal delay={(((i % 3) + 1) * 100) as 100 | 200 | 300} class="group relative">
+              <div class="card-halo rounded-xl" aria-hidden="true" />
+              <div class="card p-6">
+                <div class="w-12 h-12 rounded-full bg-cyber-blue/20 border border-cyber-blue flex items-center justify-center mb-4 glow">
+                  <i class={`${item.icon} text-cyber-blue text-xl`} aria-hidden="true" />
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-cyber-blue font-future">{item.title}</h3>
+                <p class="text-gray-300 leading-relaxed">{item.text}</p>
+              </div>
+            </Reveal>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</MainLayout>

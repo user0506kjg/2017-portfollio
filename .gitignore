@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+.env
+.env.production
+
+# Source resume — contains personal contact details (email, phone, LinkedIn).
+# Deliberately excluded: this repository is public.
+JEAN-LUC_PINAS_Resume.pdf
+*.pdf

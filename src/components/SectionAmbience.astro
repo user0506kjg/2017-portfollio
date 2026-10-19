@@ -1,0 +1,44 @@
+---
+/**
+ * Decorative per-section atmosphere: blurred accent orbs plus optional
+ * gradient fades at the section edges. Purely presentational.
+ */
+interface Props {
+  fade?: 'none' | 'top' | 'bottom' | 'both';
+  orbs?: boolean;
+}
+
+const { fade = 'none', orbs = true } = Astro.props;
+---
+
+{
+  (fade === 'top' || fade === 'both') && (
+    <div
+      class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-cyber-dark to-transparent pointer-events-none"
+      aria-hidden="true"
+    />
+  )
+}
+{
+  (fade === 'bottom' || fade === 'both') && (
+    <div
+      class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-cyber-dark to-transparent pointer-events-none"
+      aria-hidden="true"
+    />
+  )
+}
+{
+  orbs && (
+    <>
+      <div
+        class="absolute w-96 h-96 bg-cyber-blue/10 rounded-full blur-3xl -top-20 -left-20 animate-pulse-slow pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        class="absolute w-64 h-64 bg-cyber-blue/10 rounded-full blur-3xl -bottom-20 -right-20 animate-pulse-slow pointer-events-none"
+        style="animation-delay: 3s;"
+        aria-hidden="true"
+      />
+    </>
+  )
+}

@@ -1,0 +1,32 @@
+---
+import Reveal from './Reveal.astro';
+
+/**
+ * The site-wide section header: two-tone centred heading plus a glowing
+ * underline. Pass the plain words in `lead` and the accent words in `accent`.
+ */
+interface Props {
+  lead: string;
+  accent: string;
+  subtitle?: string;
+  level?: 'h1' | 'h2';
+  class?: string;
+}
+
+const { lead, accent, subtitle, level = 'h2', class: className = '' } = Astro.props;
+const Heading = level;
+---
+
+<Reveal class={`flex flex-col items-center ${subtitle ? 'mb-12' : 'mb-16'} ${className}`}>
+  <div class="relative">
+    <Heading class="text-3xl md:text-4xl font-bold text-center font-future tracking-tight">
+      {lead && <>{lead}{' '}</>}<span class="text-cyber-blue text-shadow-glow">{accent}</span>
+    </Heading>
+    <div class="h-1 w-32 bg-cyber-blue mt-4 mx-auto rounded-full glow"></div>
+  </div>
+  {
+    subtitle && (
+      <p class="text-gray-400 text-center max-w-2xl mt-6 leading-relaxed">{subtitle}</p>
+    )
+  }
+</Reveal>

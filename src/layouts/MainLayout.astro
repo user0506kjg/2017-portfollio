@@ -1,0 +1,203 @@
+---
+import '../styles/global.css';
+import AmbientBackground from '../components/AmbientBackground.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { profile } from '../data/profile';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${profile.name} | ${profile.role}`,
+  description = profile.heroBlurb,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={profile.name} />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script is:inline>
+      // Flag used by global.css so that reveal content is never left hidden
+      // if the module bundle fails to execute.
+      document.documentElement.classList.remove('no-js');
+    </script>
+  </head>
+
+  <body class="font-sans text-white overflow-x-hidden antialiased">
+    <!-- WebGL particle field (three.js); one canvas, no animated DOM nodes -->
+    <AmbientBackground />
+
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-cyber-blue focus:text-cyber-dark focus:px-4 focus:py-2 focus:rounded-md focus:font-bold"
+    >
+      Skip to content
+    </a>
+
+    <Header />
+
+    <main id="main" class="relative z-10">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <button
+      id="back-to-top"
+      class="fixed bottom-6 end-6 bg-cyber-dark/80 backdrop-blur-sm border border-cyber-blue text-cyber-blue size-12 flex items-center justify-center rounded-full opacity-0 invisible transition-all duration-300 z-50 hover:bg-cyber-blue hover:text-cyber-dark"
+      aria-label="Back to top"
+      title="Back to top"
+    >
+      {/* Inline SVG rather than an icon font: this control must never be a
+          blank circle if the icon CDN is blocked or slow. */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.25"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-5 h-5"
+        aria-hidden="true"
+      >
+        <path d="M12 19V5" />
+        <path d="m5 12 7-7 7 7" />
+      </svg>
+    </button>
+
+    <script>
+      import Alpine from 'alpinejs';
+      import intersect from '@alpinejs/intersect';
+
+      Alpine.plugin(intersect);
+
+      /* ------------------------------------------------------------------
+       * Count-up stat component
+       * ---------------------------------------------------------------- */
+      Alpine.data('counter', (end: number, duration = 2) => ({
+        current: 0,
+        counting: false,
+        end: Number(end),
+        start() {
+          if (this.counting || this.current >= this.end) return;
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            this.current = this.end;
+            return;
+          }
+          this.counting = true;
+          const from = this.current;
+          const delta = this.end - from;
+          const t0 = performance.now();
+          const ms = duration * 1000;
+          const tick = (now: number) => {
+            const p = Math.min((now - t0) / ms, 1);
+            // ease-out cubic
+            const eased = 1 - Math.pow(1 - p, 3);
+            this.current = Math.round(from + delta * eased);
+            if (p < 1) {
+              requestAnimationFrame(tick);
+            } else {
+              this.current = this.end;
+              this.counting = false;
+            }
+          };
+          requestAnimationFrame(tick);
+        },
+      }));
+
+      (window as any).Alpine = Alpine;
+      Alpine.start();
+
+      /* ------------------------------------------------------------------
+       * Scroll reveal — framework independent
+       * ---------------------------------------------------------------- */
+      const reveals = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if (reveals.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+        reveals.forEach((el) => io.observe(el));
+      }
+
+      /* ------------------------------------------------------------------
+       * Smooth in-page scrolling with fixed-header offset + scrollspy
+       * ---------------------------------------------------------------- */
+      const HEADER_OFFSET = 80;
+      const smoothLinks = document.querySelectorAll<HTMLAnchorElement>('a[data-type="smooth"]');
+
+      smoothLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+          const id = link.getAttribute('href')?.slice(1);
+          if (!id) return;
+          const target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          const top = target.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+          window.scrollTo({ top, behavior: 'smooth' });
+        });
+      });
+
+      /* ------------------------------------------------------------------
+       * Back to top
+       * ---------------------------------------------------------------- */
+      const toTop = document.getElementById('back-to-top');
+      if (toTop) {
+        const sync = () => {
+          const show = window.scrollY > 300;
+          toTop.classList.toggle('opacity-0', !show);
+          toTop.classList.toggle('invisible', !show);
+          toTop.classList.toggle('opacity-100', show);
+          toTop.classList.toggle('visible', show);
+        };
+        window.addEventListener('scroll', sync, { passive: true });
+        sync();
+        toTop.addEventListener('click', () =>
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        );
+      }
+    </script>
+  </body>
+</html>

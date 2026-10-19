@@ -1,0 +1,109 @@
+---
+/**
+ * AI chip emblem: a central processor die labelled "Ai" with circuit traces
+ * radiating to pad nodes on all four sides.
+ *
+ * Drawn as inline SVG rather than shipped as a raster so it stays crisp at any
+ * size, inherits the cyan tokens, and adds no network request.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+
+// Traces are generated per side and rotated into place, so the four sides stay
+// consistent and the markup stays short. Coordinates are in a 0 0 200 200 box
+// with the die occupying 70..130.
+const DIE = 70;
+
+// [offset along the die edge, straight run, optional lateral jog]
+// Reaches are tuned so the centre trace runs furthest and every pad stays
+// clear of the viewBox edge (smallest pad centre is y=20, pad radius 3.5).
+const TRACES: [number, number, number][] = [
+  [78, 30, -14],
+  [88, 38, 0],
+  [100, 44, 0],
+  [112, 38, 0],
+  [122, 30, 14],
+];
+
+/** Builds one trace as a path string plus its terminating pad position. */
+function trace(x: number, reach: number, jog: number) {
+  const yEnd = DIE - reach;
+  if (jog === 0) {
+    return { d: `M${x},${DIE} V${yEnd}`, pad: [x, yEnd - 6] as const };
+  }
+  const xEnd = x + jog;
+  return {
+    d: `M${x},${DIE} V${yEnd} H${xEnd} V${yEnd - 14}`,
+    pad: [xEnd, yEnd - 20] as const,
+  };
+}
+
+const paths = TRACES.map(([x, reach, jog]) => trace(x, reach, jog));
+const SIDES = [0, 90, 180, 270];
+---
+
+<svg
+  viewBox="0 0 200 200"
+  class={`ai-chip ${className}`}
+  role="img"
+  aria-label="Stylised AI processor chip with circuit traces"
+>
+  <g
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    {
+      SIDES.map((angle) => (
+        <g transform={`rotate(${angle} 100 100)`}>
+          {paths.map((p) => (
+            <>
+              <path d={p.d} />
+              <circle cx={p.pad[0]} cy={p.pad[1]} r="3.5" fill="currentColor" stroke="none" />
+            </>
+          ))}
+        </g>
+      ))
+    }
+
+    <!-- processor die -->
+    <rect
+      x="70"
+      y="70"
+      width="60"
+      height="60"
+      rx="4"
+      stroke-width="2.5"
+      fill="#00e5ff14"
+    />
+  </g>
+
+  <text
+    x="100"
+    y="101"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    fill="currentColor"
+    class="ai-chip__label"
+  >
+    Ai
+  </text>
+</svg>
+
+<style>
+  .ai-chip {
+    color: var(--color-cyber-blue);
+    filter: drop-shadow(0 0 6px #00e5ff66);
+  }
+
+  .ai-chip__label {
+    font-family: var(--font-future);
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+</style>

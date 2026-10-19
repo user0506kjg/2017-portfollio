@@ -1,0 +1,44 @@
+---
+/**
+ * The notched accent button. `variant="solid"` is the primary action,
+ * `variant="outline"` the secondary.
+ */
+interface Props {
+  href?: string;
+  variant?: 'solid' | 'outline';
+  type?: 'button' | 'submit';
+  smooth?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = 'solid',
+  type = 'button',
+  smooth = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const base =
+  'relative max-sm:w-full inline-flex items-center justify-center gap-2 cyber-btn font-future font-bold py-3 px-8 transition-all duration-300 glow';
+
+const variants = {
+  solid: 'bg-cyber-blue hover:bg-cyber-blue/80 text-cyber-dark',
+  outline: 'bg-transparent border border-cyber-blue text-cyber-blue hover:bg-cyber-blue/10',
+};
+
+const classes = `${base} ${variants[variant]} ${className}`;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class={classes}
+  {...href ? { href } : { type }}
+  {...smooth ? { 'data-type': 'smooth' } : {}}
+  {...rest}
+>
+  <span class="sheen" aria-hidden="true"></span>
+  <slot />
+</Tag>

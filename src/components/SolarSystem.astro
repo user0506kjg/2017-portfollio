@@ -1,0 +1,253 @@
+---
+import AiChip from './AiChip.astro';
+
+/**
+ * Hero centrepiece: the AI chip is the sun, with labelled planets orbiting it
+ * in real 3D. Each planet is a pillar of the stack, so the graphic means
+ * something rather than being pure decoration.
+ *
+ * How the 3D works
+ * ----------------
+ * The scene gets a `perspective`; every element in the chain keeps
+ * `transform-style: preserve-3d` so the browser composes rather than flattens.
+ *
+ *   .orbit      tilts the orbital plane  -> rotateX(tx) rotateY(ty)
+ *   .spinner    sweeps the planet round  -> rotateZ(t), animated
+ *   .anchor     pins it to the rim
+ *   .billboard  undoes all of the above so the dot and label face the viewer
+ *
+ * The billboard works because the inverse of Rx(tx)·Ry(ty)·Rz(t) is
+ * Rz(-t)·Ry(-ty)·Rx(-tx) — applied in that order down the element chain, the
+ * net rotation is the identity. `.bb-z` carries the animated Rz(-t) and
+ * `.bb-plane`, its child, the static Ry(-ty)·Rx(-tx).
+ *
+ * Counter-rotation stays in sync under reversal because `.spinner` and `.bb-z`
+ * share `--dir`, but use keyframes of opposite sign.
+ *
+ * Each planet has its own plane, radius, period, direction and phase, so no two
+ * trace the same path.
+ *
+ * `--start` sets a resting angle as the elements' base transform. Animation
+ * keyframes override it while running; if animation is suppressed (reduced
+ * motion), the planets stay spread around their orbits instead of collapsing
+ * onto 12 o'clock.
+ */
+const PLANETS = [
+  // radius %, plane tilt X/Y, period s, direction, phase s, resting angle deg
+  { label: 'Python', r: 54, tx: 68, ty: 0, dur: 16, dir: 'normal', delay: -3, start: 40, size: 10 },
+  { label: 'LLMs', r: 66, tx: 76, ty: 20, dur: 23, dir: 'reverse', delay: -8, start: 155, size: 13 },
+  { label: 'Agents', r: 78, tx: 58, ty: -24, dur: 31, dir: 'normal', delay: -17, start: 250, size: 9 },
+  { label: 'RAG', r: 90, tx: 82, ty: 14, dur: 39, dir: 'reverse', delay: -26, start: 95, size: 14 },
+  { label: 'Data', r: 100, tx: 64, ty: -16, dur: 50, dir: 'normal', delay: -37, start: 310, size: 11 },
+];
+---
+
+{/* Sizes are capped per breakpoint by the hero's grid column: at lg the column
+    is only ~456px wide, so the largest step waits until xl. */}
+<div
+  class="solar w-[18rem] h-[18rem] sm:w-[26rem] sm:h-[26rem] lg:w-[28rem] lg:h-[28rem] xl:w-[34rem] xl:h-[34rem]"
+>
+  <div class="scene">
+    {
+      PLANETS.map((p) => (
+        <div
+          class="orbit"
+          style={`--r:${p.r}%; --tx:${p.tx}deg; --ty:${p.ty}deg; --dur:${p.dur}s; --delay:${p.delay}s; --dir:${p.dir}; --start:${p.start}deg;`}
+          aria-hidden="true"
+        >
+          <div class="ring" />
+          <div class="spinner">
+            <div class="anchor">
+              <div class="bb-z">
+                <div class="bb-plane">
+                  <span class="dot" style={`--d:${p.size};`} />
+                  <span class="label hidden sm:block">{p.label}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+
+    {/* The sun. Sits at z=0 in the same 3D context, so planets swinging to the
+        far side of their orbit pass behind it. */}
+    <div class="sun">
+      <div
+        class="absolute -inset-[6%] rounded-full border-4 border-cyber-blue/20 animate-pulse"
+        aria-hidden="true"
+      >
+      </div>
+      <div
+        class="absolute inset-0 rounded-full bg-cyber-dark/80 border border-cyber-blue glow overflow-hidden flex items-center justify-center"
+      >
+        <div
+          class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,#00e5ff33,transparent_65%)]"
+          aria-hidden="true"
+        >
+        </div>
+        <AiChip class="relative w-[80%] h-[80%]" />
+      </div>
+    </div>
+  </div>
+
+  <span class="sr-only">
+    An AI processor at the centre of orbiting technologies: {PLANETS.map((p) => p.label).join(', ')}.
+  </span>
+</div>
+
+<style>
+  /* Both stops are explicit and anchored to --start. With only a `to` stop the
+     implicit `from` would be the element's base angle, so a planet resting at
+     310deg would sweep just 50deg and snap, rather than making a full circuit. */
+  @keyframes orbitZ {
+    from {
+      transform: rotateZ(var(--start));
+    }
+    to {
+      transform: rotateZ(calc(var(--start) + 360deg));
+    }
+  }
+  /* Opposite sign, so sharing --dir keeps the billboard in step under reversal. */
+  @keyframes orbitZCounter {
+    from {
+      transform: rotateZ(calc(-1 * var(--start)));
+    }
+    to {
+      transform: rotateZ(calc(-1 * var(--start) - 360deg));
+    }
+  }
+
+  /* Orbits and the sun are sized in %, so they scale with the box on their own.
+     Dots, labels and gaps are pixel-based, so --scale keeps them in proportion
+     as the box grows across breakpoints. */
+  .solar {
+    position: relative;
+    perspective: 1400px;
+    perspective-origin: 50% 46%;
+    --scale: 0.85;
+  }
+
+  @media (min-width: 640px) {
+    .solar {
+      --scale: 1.1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .solar {
+      --scale: 1.2;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .solar {
+      --scale: 1.45;
+    }
+  }
+
+  .scene {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    /* A slight lean so the orbital planes read as 3D rather than flat rings. */
+    transform: rotateX(6deg);
+  }
+
+  /* Centred via `inset` so the element's own transform is free for the tilt. */
+  .orbit {
+    position: absolute;
+    inset: calc((100% - var(--r)) / 2);
+    transform-style: preserve-3d;
+    transform: rotateX(var(--tx)) rotateY(var(--ty));
+  }
+
+  .ring {
+    position: absolute;
+    inset: 0;
+    border: 1px solid #00e5ff2b;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #00e5ff14 inset;
+  }
+
+  .spinner {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform: rotateZ(var(--start));
+    animation: orbitZ var(--dur) linear infinite;
+    animation-delay: var(--delay);
+    animation-direction: var(--dir);
+    will-change: transform;
+  }
+
+  .anchor {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-style: preserve-3d;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Undo the sweep … */
+  .bb-z {
+    transform-style: preserve-3d;
+    transform: rotateZ(calc(-1 * var(--start)));
+    animation: orbitZCounter var(--dur) linear infinite;
+    animation-delay: var(--delay);
+    animation-direction: var(--dir);
+  }
+
+  /* … then undo the plane tilt, leaving the planet facing the viewer. */
+  .bb-plane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(5px * var(--scale));
+    transform: rotateY(calc(-1 * var(--ty))) rotateX(calc(-1 * var(--tx)));
+  }
+
+  .dot {
+    width: calc(var(--d) * 1px * var(--scale));
+    height: calc(var(--d) * 1px * var(--scale));
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 30%, #c6f8ff, var(--color-cyber-blue) 62%);
+    box-shadow:
+      0 0 calc(8px * var(--scale)) #00e5ffcc,
+      0 0 calc(20px * var(--scale)) #00e5ff5c;
+  }
+
+  .label {
+    font-family: var(--font-future);
+    font-size: calc(10px * var(--scale));
+    letter-spacing: 0.08em;
+    color: #00e5ffc4;
+    white-space: nowrap;
+    text-shadow:
+      0 0 6px #001a2c,
+      0 0 10px #001a2c;
+  }
+
+  .sun {
+    position: absolute;
+    inset: 30%;
+    transform-style: preserve-3d;
+  }
+
+  /* global.css resets every animation to 0.01ms under "reduce motion", which
+     froze the orbits entirely. The orbits are the point of this graphic, so
+     they are re-asserted here; the scoped class selectors outrank that global
+     `*` rule. Rotation is slowed well down rather than stopped, which keeps the
+     motion gentle for anyone who asked for less of it.
+     To go back to honouring the preference, replace this block with
+     `.spinner, .bb-z { animation: none !important; }` — the resting angles on
+     each planet keep the composition readable when static. */
+  @media (prefers-reduced-motion: reduce) {
+    .spinner,
+    .bb-z {
+      animation-duration: calc(var(--dur) * 2.5) !important;
+      animation-iteration-count: infinite !important;
+      animation-timing-function: linear !important;
+    }
+  }
+</style>

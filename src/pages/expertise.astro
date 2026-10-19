@@ -1,0 +1,128 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import SectionAmbience from '../components/SectionAmbience.astro';
+import Reveal from '../components/Reveal.astro';
+import CyberButton from '../components/CyberButton.astro';
+import { process, profile, skillGroups } from '../data/profile';
+---
+
+<MainLayout
+  title={`Expertise | ${profile.name}`}
+  description="Technical expertise across AI & LLMs, agent orchestration, backend engineering, data, frontend, and engineering practice."
+>
+  <!-- ================= EXPERTISE ================= -->
+  <section
+    id="expertise"
+    class="bg-cyber-dark/60 pt-32 lg:pt-40 pb-16 lg:pb-24 relative overflow-hidden"
+  >
+    <SectionAmbience fade="bottom" />
+
+    <div class="max-w-7xl mx-auto px-6 relative">
+      <SectionHeading
+        lead="Technical"
+        accent="Expertise"
+        level="h1"
+        subtitle="Six areas I work across, from model integration down to the database."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          skillGroups.map((group, i) => (
+            <Reveal
+              delay={(((i % 3) + 1) * 100) as 100 | 200 | 300}
+              class="group relative"
+              aria-labelledby={`skill-${i}`}
+            >
+              <div class="card-halo rounded-xl" aria-hidden="true" />
+              <article class="card p-6">
+                <div class="w-12 h-12 rounded-full bg-cyber-blue/20 border border-cyber-blue flex items-center justify-center mb-4 glow">
+                  <i class={`${group.icon} text-cyber-blue text-xl`} aria-hidden="true" />
+                </div>
+                <h3 id={`skill-${i}`} class="text-xl font-bold mb-2 text-cyber-blue font-future">
+                  {group.title}
+                </h3>
+                <p class="text-gray-300 mb-5 leading-relaxed">{group.blurb}</p>
+                <ul class="text-gray-300 text-sm space-y-2.5" aria-label={`${group.title} skills`}>
+                  {group.items.map((item) => (
+                    <li class="flex items-start gap-3">
+                      <i
+                        class="fas fa-check text-cyber-blue mt-1 text-xs shrink-0"
+                        aria-hidden="true"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </Reveal>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW I WORK ================= -->
+  <section id="how-i-work" class="py-24 relative overflow-hidden">
+    <SectionAmbience fade="top" />
+
+    <div class="max-w-7xl mx-auto px-6 relative">
+      <SectionHeading
+        lead="How I"
+        accent="Work"
+        subtitle="The delivery lifecycle I follow, from first conversation to ongoing maintenance."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+        <!-- connector line on desktop -->
+        <div
+          class="hidden lg:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-cyber-blue/30 to-transparent"
+          aria-hidden="true"
+        >
+        </div>
+
+        {
+          process.map((step, i) => (
+            <Reveal delay={((i + 1) * 100) as 100 | 200 | 300 | 400} class="group relative">
+              <div class="card-halo rounded-xl" aria-hidden="true" />
+              <div class="card p-6 text-center">
+                <div class="relative w-16 h-16 mx-auto mb-5">
+                  <div class="w-16 h-16 rounded-full bg-cyber-dark border-2 border-cyber-blue flex items-center justify-center glow">
+                    <i class={`${step.icon} text-cyber-blue text-xl`} aria-hidden="true" />
+                  </div>
+                  <span class="absolute -top-1 -right-1 bg-cyber-blue text-cyber-dark text-[10px] font-bold font-future w-6 h-6 rounded-full flex items-center justify-center">
+                    {step.step}
+                  </span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-cyber-blue font-future">{step.title}</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">{step.text}</p>
+              </div>
+            </Reveal>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section id="cta" class="bg-cyber-dark/50 py-24 relative overflow-hidden">
+    <SectionAmbience />
+    <div class="max-w-4xl mx-auto px-6 relative text-center">
+      <Reveal>
+        <h2 class="text-3xl lg:text-4xl font-bold mb-6 font-future">
+          This stack, applied to
+          <span class="text-cyber-blue text-shadow-glow">real systems</span>
+        </h2>
+      </Reveal>
+      <Reveal delay={100}>
+        <p class="text-gray-300 mb-10 max-w-xl mx-auto leading-relaxed">
+          Every capability above is drawn from production work, not side projects. Here's what
+          that looked like in practice.
+        </p>
+      </Reveal>
+      <Reveal delay={200}>
+        <CyberButton href="/projects">See The Work</CyberButton>
+      </Reveal>
+    </div>
+  </section>
+</MainLayout>
