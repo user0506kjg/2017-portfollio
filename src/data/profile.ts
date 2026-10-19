@@ -129,7 +129,7 @@ export const projects = [
     category: 'AI & LLMs',
     tag: 'ai',
     image: 'rag-pipelines.jpg',
-    alt: 'Densely packed library shelves, standing in for an indexed knowledge corpus',
+    alt: 'Shelves packed tight with books, standing in for an external knowledge corpus',
     title: 'Retrieval-Augmented Generation Pipelines',
     description:
       'Designed RAG workflows connecting language models to external knowledge sources, so responses are grounded in real organisational context rather than model memory alone.',
@@ -141,7 +141,7 @@ export const projects = [
     category: 'AI Agents',
     tag: 'ai',
     image: 'agent-workflows.jpg',
-    alt: 'Dark geometric circuitry with glowing pathways branching across it',
+    alt: 'A humanoid service robot, standing in for an autonomous software agent',
     title: 'Autonomous AI Agent Workflows',
     description:
       'Built agent workflows that integrate external APIs, databases, and business tools to automate multistep processes end to end, replacing manual handoffs between systems.',
@@ -177,7 +177,7 @@ export const projects = [
     category: 'Data',
     tag: 'data',
     image: 'data-pipelines.jpg',
-    alt: 'Horizontal streams of blue light suggesting flowing data',
+    alt: 'An array of hard disk drives and their controller boards',
     title: 'Data Pipelines & Schema Design',
     description:
       'Designed relational schemas and optimised queries across PostgreSQL and MySQL, and built pipelines that validate, transform, and organise information for application features and downstream services.',

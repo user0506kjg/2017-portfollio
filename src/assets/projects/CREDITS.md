@@ -6,28 +6,31 @@ provenance is recorded here so you can verify or replace any of them.
 
 | File | Title | Source | ID | Licence |
 |---|---|---|---|---|
-| `rag-pipelines.jpg` | Books Knowledge | StockSnap | `2VENF09ZOW` | CC0 1.0 |
-| `agent-workflows.jpg` | Futuristic Technology | StockSnap | `YWJQBD3VIX` | CC0 1.0 |
+| `rag-pipelines.jpg` | Books Library   | StockSnap | `GTWPBBTRRN` | CC0 1.0 |
+| `agent-workflows.jpg` | Robot Technology      | StockSnap | `WUBMLJRYEK` | CC0 1.0 |
 | `llm-evaluation.jpg` | Futuristic Data | StockSnap | `U4TACBBYTL` | CC0 1.0 |
 | `backend-services.webp` | Computer server room | rawpixel | — | CC0 1.0 |
-| `data-pipelines.jpg` | Motion Abstract | StockSnap | `D91B1NOVLJ` | CC0 1.0 |
+| `data-pipelines.jpg` | Hard drives     | StockSnap | `2J3PLNMO9M` | CC0 1.0 |
 | `system-integration.jpg` | Technology Network | StockSnap | `PN7RVGLUUD` | CC0 1.0 |
 
 StockSnap originals: `https://cdn.stocksnap.io/img-thumbs/960w/<ID>.jpg`
 
 ## Why these
 
-Each image is a plain visual metaphor for the case study it sits above:
+Each image shows a literal subject, so the topic is readable at a glance rather
+than needing the caption to explain it:
 
-- **RAG pipelines** — shelves of books, i.e. the external knowledge corpus a RAG
+- **RAG pipelines** — shelves of books: the external knowledge corpus a RAG
   system retrieves from
-- **Agent workflows** — branching circuit pathways, i.e. a multistep process
-  routed across tools
-- **LLM evaluation** — a chart rising over a field of data, i.e. measured output
-  quality
-- **Backend services** — a data centre aisle
-- **Data pipelines** — streams of light flowing in parallel
+- **Agent workflows** — a humanoid service robot: an agent acting on its own
+- **LLM evaluation** — a chart rising over a field of data: measured output quality
+- **Backend services** — a data centre aisle of server racks
+- **Data pipelines** — an array of hard disk drives and controller boards
 - **System integration** — a graph of connected nodes
+
+An earlier set leaned on abstract imagery (light streaks for data pipelines,
+geometric circuitry for agents). Those read as decoration rather than subject
+matter and were replaced.
 
 ## How they're processed
 
