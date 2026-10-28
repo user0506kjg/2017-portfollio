@@ -31,20 +31,32 @@ portfolio practice, but it is not a public-domain licence. If any client objects
 or if a working relationship ends, replace the image. Keep in mind the logos and
 photography may also be trademarked.
 
-## Generated panels — `wp-*.jpg`
+## `wp-*.jpg` — also client assets, NOT CC0
 
-The eight `wp-*.jpg` files are **generated**, not photographed or taken from the
-client sites: a dark gradient, a faint grid and the site name and domain set in
-the portfolio's own palette.
+Each of these is taken from the site it represents, under the same terms as the
+table above: the rights belong to those businesses, and logos and artwork may be
+trademarked.
 
-They exist because those eight sites publish no usable shared preview image —
-only logos, partner badges or plugin assets — so photo cards would have looked
-inconsistent beside each other. Generating them also sidesteps any trademark
-question around reusing client logos.
+| File | Taken from | What it shows |
+|---|---|---|
+| `wp-vibrantpharma.jpg` | vibrantpharma.com | Laboratory glassware (`chemical_synthesis-banner.jpg`) |
+| `wp-bertolla.jpg` | bertolla.com | *Epic Battle* album cover (`images/10.jpg`) |
+| `wp-goprogarage.jpg` | goprogaragedoorservice.com | A fitted garage door (`IMG_2934-1.jpg`) |
+| `wp-urogyn.jpg` | urogyn.se | The clinic entrance (`2024/07/2.png`) |
+| `wp-pulsesante.jpg` | pulse-sante.fr | Product UI (`intro-large-img-1`) |
+| `wp-aesthetika.jpg` | aesthetikadentalstudio.co.uk | The practice team and signage |
+| `wp-klens.jpg` | klensvision.com | Laparoscope in use (`Klens_ProblemImage`) |
+| `wp-cascade.jpg` | hivcarecascade.com | The CASCADE wordmark (`V3/static/images/logo.png`) |
 
-To replace one with a real screenshot, drop a 1200×630 image into this folder
-and point the project's `image` field at it. The generator lives in the commit
-that added them if you want to regenerate the set.
+Photographs are cropped to 1200×630. Logos and UI artwork are letterboxed onto a
+dark panel instead, so nothing is cut off.
+
+An earlier version of this set used generated typographic panels — site name and
+domain on a grid — because several of these sites publish no Open Graph preview
+image. Those were replaced with real imagery pulled from the sites themselves.
+
+To swap one, drop a 1200×630 file into this folder and point the project's
+`image` field at it.
 
 StockSnap originals: `https://cdn.stocksnap.io/img-thumbs/960w/<ID>.jpg`
 

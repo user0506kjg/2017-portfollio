@@ -283,7 +283,7 @@ export const projects = [
     category: 'WordPress',
     tag: 'wordpress',
     image: 'wp-vibrantpharma.jpg',
-    alt: 'Vibrant Pharma project card',
+    alt: 'Laboratory glassware on a bench in a synthesis lab',
     title: 'Vibrant Pharma — Chemistry CRO Catalogue',
     description:
       'Site and product catalogue for a Canadian contract research organisation in Brantford, Ontario, offering custom synthesis, medicinal and process chemistry. Visitors search catalogue compounds by name, category, catalogue number, CAS or MDL number and order through a WooCommerce cart.',
@@ -296,7 +296,7 @@ export const projects = [
     category: 'WordPress',
     tag: 'wordpress',
     image: 'wp-goprogarage.jpg',
-    alt: 'Go Pro Garage Door Service project card',
+    alt: 'The interior of a residential garage door and its track mechanism',
     title: 'Go Pro Garage Door — Florida Service Site',
     description:
       'Lead-generation site for a Florida garage door repair and installation company, built to turn local search traffic into phone calls. Service pages, a project gallery and call-to-action blocks throughout, with Google Site Kit wired in for search and analytics reporting.',
@@ -309,7 +309,7 @@ export const projects = [
     category: 'WordPress',
     tag: 'wordpress',
     image: 'wp-urogyn.jpg',
-    alt: 'Urogyn project card',
+    alt: 'The glass entrance of the Urogyn clinic in Stockholm',
     title: 'Urogyn — Stockholm Specialist Clinic',
     description:
       'Swedish-language site for one of Stockholm’s leading urology, gynaecology and urotherapy practices. Presents treatment areas and clinician profiles, and routes patients to the right specialist, built on a lightweight Hello Elementor base for speed.',
@@ -322,7 +322,7 @@ export const projects = [
     category: 'WordPress',
     tag: 'wordpress',
     image: 'wp-pulsesante.jpg',
-    alt: 'Pulse Sante project card',
+    alt: 'The Pulse Santé software interface showing a patient record',
     title: 'Pulse Santé — Healthcare SaaS Marketing Site',
     description:
       'French marketing site for an all-in-one management platform (PSDM) used by home healthcare providers and medical equipment suppliers. Product and feature pages lead to demo requests, on a bespoke theme rather than a page builder.',
@@ -335,7 +335,7 @@ export const projects = [
     category: 'WordPress',
     tag: 'wordpress',
     image: 'wp-aesthetika.jpg',
-    alt: 'Aesthetika Dental Studio project card',
+    alt: 'Two dentists in front of the Aesthetika Dental Studio signage',
     title: 'Aesthetika Dental Studio — Private Dental Practice',
     description:
       'Site for a private dental practice in Kingston upon Thames covering check-ups, hygiene, Invisalign and implants. Treatment pages carry social proof from 250+ Google reviews, with WP Rocket handling caching and asset optimisation on a media-heavy build.',
@@ -349,7 +349,7 @@ export const projects = [
     category: 'Static Site',
     tag: 'wordpress',
     image: 'wp-bertolla.jpg',
-    alt: 'Ivan Bertolla project card',
+    alt: 'Cover art for the Epic Battle orchestral trailer album by Ivan Bertolla',
     title: 'Ivan Bertolla — Composer Portfolio',
     description:
       'Official site for an Australian composer, guitarist and producer whose production music scores major events. A lean, hand-built presence showcasing the catalogue and credits, with no CMS behind it.',
@@ -363,7 +363,7 @@ export const projects = [
     category: 'Webflow',
     tag: 'wordpress',
     image: 'wp-klens.jpg',
-    alt: 'Klens project card',
+    alt: 'A gloved hand holding a laparoscope during keyhole surgery',
     title: 'Klens — Surgical Device Launch Site',
     description:
       'Product site for a single-use device, co-developed with Mayo Clinic, that cleans a laparoscope lens without withdrawing it from the patient. Frames the clinical problem with cited evidence and converts surgeons and health systems into enquiries.',
@@ -377,7 +377,7 @@ export const projects = [
     category: 'Web App',
     tag: 'wordpress',
     image: 'wp-cascade.jpg',
-    alt: 'CASCADE HIV Care Cascade Database project card',
+    alt: 'The CASCADE HIV care cascade database wordmark',
     title: 'CASCADE — HIV Care Cascade Database',
     description:
       'Research database from McMaster University holding 349 clinical trials and 74,375 participants from 1995 to 2023. Trials are filterable by income level, population, care setting and intervention type, with interactive trend charts and CSV or JSON export.',
