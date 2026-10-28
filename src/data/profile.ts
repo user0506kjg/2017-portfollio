@@ -135,6 +135,8 @@ export const projects = [
       'Designed RAG workflows connecting language models to external knowledge sources, so responses are grounded in real organisational context rather than model memory alone.',
     tech: ['LangChain', 'Embeddings', 'Vector DBs', 'Semantic Search'],
     source: 'Senior AI Software Engineer, Together AI',
+    sourceKind: 'employer' as const,
+    href: 'https://www.together.ai/',
   },
   {
     slug: 'agent-workflows',
@@ -147,6 +149,8 @@ export const projects = [
       'Built agent workflows that integrate external APIs, databases, and business tools to automate multistep processes end to end, replacing manual handoffs between systems.',
     tech: ['LangGraph', 'Function Calling', 'MCP', 'Python'],
     source: 'Senior AI Software Engineer, Together AI',
+    sourceKind: 'employer' as const,
+    href: 'https://www.together.ai/',
   },
   {
     slug: 'llm-evaluation',
@@ -159,6 +163,8 @@ export const projects = [
       'Evaluated model outputs for relevance, accuracy, consistency, and instruction adherence, then refined prompts and workflows against those test results to make application behaviour predictable.',
     tech: ['Prompt Engineering', 'Structured Outputs', 'Test Harnesses', 'OpenAI API'],
     source: 'Senior AI Software Engineer, Together AI',
+    sourceKind: 'employer' as const,
+    href: 'https://www.together.ai/',
   },
   {
     slug: 'backend-services',
@@ -171,6 +177,8 @@ export const projects = [
       'Developed and maintained Python backend services and REST APIs supporting web applications and third-party integrations, including deployment, troubleshooting, and ongoing maintenance.',
     tech: ['Python', 'FastAPI', 'Django', 'REST'],
     source: 'Python Backend Developer, Poolside',
+    sourceKind: 'employer' as const,
+    href: 'https://poolside.ai/',
   },
   {
     slug: 'data-pipelines',
@@ -183,6 +191,8 @@ export const projects = [
       'Designed relational schemas and optimised queries across PostgreSQL and MySQL, and built pipelines that validate, transform, and organise information for application features and downstream services.',
     tech: ['PostgreSQL', 'MySQL', 'Redis', 'Data Pipelines'],
     source: 'Python Backend Developer, Poolside',
+    sourceKind: 'employer' as const,
+    href: 'https://poolside.ai/',
   },
   {
     slug: 'system-integration',
@@ -195,6 +205,8 @@ export const projects = [
       'Integrated external APIs and business systems with authentication, request validation, error handling, and logging — plus automated workflows coordinating interactions between external services.',
     tech: ['REST APIs', 'Airtable', 'Slack', 'Auth'],
     source: 'AI Developer & Integration Engineer, Thinking Machines Lab',
+    sourceKind: 'employer' as const,
+    href: 'https://thinkingmachines.ai/',
   },
 
   /* ----------------------------------------------------------------------

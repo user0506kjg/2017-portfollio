@@ -34,6 +34,13 @@ interface Props {
     /** Optional: live URL. When present the source line becomes a link. */
     href?: string;
     /**
+     * What `href` points at. 'site' (the default) is the published work
+     * itself. 'employer' is for internal work with no public artifact: the
+     * link goes to the company it was built at, and the card keeps the
+     * briefcase icon so it does not read as a link to the project.
+     */
+    sourceKind?: 'site' | 'employer';
+    /**
      * How the image fills its panel. 'cover' (the default) crops a landscape
      * source into a fixed short band. 'natural' gives the panel the image's
      * own aspect ratio at full card width, so a tall phone screenshot is shown
@@ -48,6 +55,7 @@ interface Props {
 const { project, delay, filterable = false } = Astro.props;
 const img = imageFor(project.image);
 const natural = project.media === 'natural';
+const employerLink = project.sourceKind === 'employer';
 ---
 
 <Reveal
@@ -133,10 +141,22 @@ const natural = project.media === 'natural';
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Visit ${project.source} (opens in a new tab)`}
-              class="group/src text-xs pt-4 border-t border-cyber-blue/10 flex items-center gap-2 text-cyber-blue/80 hover:text-cyber-blue transition-colors"
+              aria-label={
+                employerLink
+                  ? `${project.source} — opens the employer's website in a new tab`
+                  : `Visit ${project.source} (opens in a new tab)`
+              }
+              class="group/src text-xs pt-4 border-t border-cyber-blue/10 flex items-start gap-2 text-cyber-blue/80 hover:text-cyber-blue transition-colors"
             >
-              <i class="fas fa-arrow-up-right-from-square text-cyber-blue/60" aria-hidden="true" />
+              <i
+                class:list={[
+                  'text-cyber-blue/60',
+                  employerLink
+                    ? 'fas fa-briefcase mt-0.5'
+                    : 'fas fa-arrow-up-right-from-square',
+                ]}
+                aria-hidden="true"
+              />
               <span class="underline decoration-cyber-blue/30 underline-offset-4 group-hover/src:decoration-cyber-blue">
                 {project.source}
               </span>
