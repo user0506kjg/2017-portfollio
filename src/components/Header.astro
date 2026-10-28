@@ -1,8 +1,24 @@
 ---
-import { nav, profile } from '../data/profile';
+import { getContent, localePath, type Locale } from '../i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+interface Props {
+  lang: Locale;
+  /** Page path without the locale prefix, e.g. '/about'. */
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const t = getContent(lang);
+
+const items = [
+  { key: '/', label: t.nav.home },
+  { key: '/about', label: t.nav.about },
+  { key: '/expertise', label: t.nav.expertise },
+  { key: '/projects', label: t.nav.projects },
+];
+
+const isActive = (key: string) => (key === '/' ? path === '/' : path.startsWith(key));
 ---
 
 <header
@@ -12,52 +28,63 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   class="fixed w-full z-40 backdrop-blur-md border-b border-cyber-blue/20 transition-colors duration-300"
 >
   <div class="max-w-7xl mx-auto px-6 py-4">
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center gap-4">
       <!-- Monogram + wordmark -->
-      <a href="/" class="flex items-center font-future group" aria-label={`${profile.name} — home`}>
+      <a
+        href={localePath(lang, '/')}
+        class="flex items-center font-future group shrink-0"
+        aria-label={`${t.profile.name} — ${t.ui.homeAria}`}
+      >
         <div
           class="w-10 h-10 rounded-full bg-cyber-blue/20 border border-cyber-blue flex items-center justify-center glow transition-transform duration-300 group-hover:scale-110"
         >
-          <span class="text-cyber-blue text-xl font-bold">{profile.initial}</span>
+          <span class="text-cyber-blue text-xl font-bold">{t.profile.initial}</span>
         </div>
-        <span class="ml-3 text-xl font-bold">
-          <span class="text-white">{profile.given}</span>
-          <span class="text-cyber-blue"> {profile.family}</span>
+        <span class="ml-3 text-lg xl:text-xl font-bold hidden sm:inline">
+          <span class="text-white">{t.profile.given}</span>
+          <span class="text-cyber-blue"> {t.profile.family}</span>
         </span>
       </a>
 
-      <!-- Desktop nav -->
-      <nav class="hidden lg:flex space-x-8 font-future text-sm" aria-label="Main navigation">
-        {
-          nav.map((item) => (
-            <a
-              href={item.href}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-              class:list={[
-                'relative transition-colors duration-300 hover:text-cyber-blue',
-                isActive(item.href) ? 'text-cyber-blue' : 'text-white',
-              ]}
-            >
-              {item.label}
-              {isActive(item.href) && (
-                <span class="absolute -bottom-1.5 left-0 w-full h-px bg-cyber-blue glow-sm" />
-              )}
-            </a>
-          ))
-        }
-      </nav>
+      <div class="flex items-center gap-4">
+        <!-- Desktop nav -->
+        <nav class="hidden lg:flex space-x-8 font-future text-sm" aria-label={t.nav.home}>
+          {
+            items.map((item) => (
+              <a
+                href={localePath(lang, item.key)}
+                aria-current={isActive(item.key) ? 'page' : undefined}
+                class:list={[
+                  'relative transition-colors duration-300 hover:text-cyber-blue',
+                  isActive(item.key) ? 'text-cyber-blue' : 'text-white',
+                ]}
+              >
+                {item.label}
+                {isActive(item.key) && (
+                  <span class="absolute -bottom-1.5 left-0 w-full h-px bg-cyber-blue glow-sm" />
+                )}
+              </a>
+            ))
+          }
+        </nav>
 
-      <!-- Mobile toggle -->
-      <button
-        x-on:click="mobileMenuOpen = !mobileMenuOpen"
-        x-bind:aria-expanded="mobileMenuOpen.toString()"
-        aria-controls="mobile-menu"
-        aria-label="Toggle navigation menu"
-        class="lg:hidden text-cyber-blue w-10 h-10 flex items-center justify-center rounded-md border border-cyber-blue/30 hover:bg-cyber-blue/10 transition-colors"
-      >
-        <i class="fas fa-bars text-lg" x-show="!mobileMenuOpen"></i>
-        <i class="fas fa-xmark text-lg" x-show="mobileMenuOpen" style="display: none;"></i>
-      </button>
+        <!-- Language switcher: dropdown from md up, a row inside the mobile menu -->
+        <div class="hidden md:block">
+          <LanguageSwitcher lang={lang} path={path} />
+        </div>
+
+        <!-- Mobile toggle -->
+        <button
+          x-on:click="mobileMenuOpen = !mobileMenuOpen"
+          x-bind:aria-expanded="mobileMenuOpen.toString()"
+          aria-controls="mobile-menu"
+          aria-label={t.ui.openMenu}
+          class="lg:hidden text-cyber-blue w-10 h-10 flex items-center justify-center rounded-md border border-cyber-blue/30 hover:bg-cyber-blue/10 transition-colors shrink-0"
+        >
+          <i class="fas fa-bars text-lg" x-show="!mobileMenuOpen"></i>
+          <i class="fas fa-xmark text-lg" x-show="mobileMenuOpen" style="display: none;"></i>
+        </button>
+      </div>
     </div>
 
     <!-- Mobile nav -->
@@ -69,15 +96,15 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
       class="lg:hidden mt-4 pb-2"
       style="display: none;"
     >
-      <nav class="flex flex-col space-y-1 font-future" aria-label="Mobile navigation">
+      <nav class="flex flex-col space-y-1 font-future" aria-label={t.nav.home}>
         {
-          nav.map((item) => (
+          items.map((item) => (
             <a
-              href={item.href}
-              aria-current={isActive(item.href) ? 'page' : undefined}
+              href={localePath(lang, item.key)}
+              aria-current={isActive(item.key) ? 'page' : undefined}
               class:list={[
                 'py-3 px-4 rounded-md transition-colors duration-200 hover:bg-cyber-blue/10 hover:text-cyber-blue',
-                isActive(item.href)
+                isActive(item.key)
                   ? 'text-cyber-blue bg-cyber-blue/10 border-l-2 border-cyber-blue'
                   : 'text-white',
               ]}
@@ -87,6 +114,13 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
           ))
         }
       </nav>
+
+      <div class="md:hidden mt-4 pt-4 border-t border-cyber-blue/10">
+        <p class="text-xs uppercase tracking-widest text-cyber-blue/70 font-future mb-3">
+          {t.ui.languageLabel}
+        </p>
+        <LanguageSwitcher lang={lang} path={path} inline />
+      </div>
     </div>
   </div>
 </header>

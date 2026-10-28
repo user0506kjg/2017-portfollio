@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Reveal from './Reveal.astro';
+import { getContent, type Locale } from '../i18n';
 
 /**
  * Project images live in src/assets/projects so Astro can resize them and
@@ -48,11 +49,13 @@ interface Props {
      */
     media?: 'cover' | 'natural';
   };
+  lang: Locale;
   delay?: 100 | 200 | 300 | 400 | 500 | 600;
   filterable?: boolean;
 }
 
-const { project, delay, filterable = false } = Astro.props;
+const { project, lang, delay, filterable = false } = Astro.props;
+const t = getContent(lang).ui;
 const img = imageFor(project.image);
 const natural = project.media === 'natural';
 const employerLink = project.sourceKind === 'employer';
@@ -143,8 +146,8 @@ const employerLink = project.sourceKind === 'employer';
               rel="noopener noreferrer"
               aria-label={
                 employerLink
-                  ? `${project.source} — opens the employer's website in a new tab`
-                  : `Visit ${project.source} (opens in a new tab)`
+                  ? `${project.source} — ${t.opensEmployerSite}`
+                  : `${project.source} (${t.opensInNewTab})`
               }
               class="group/src text-xs pt-4 border-t border-cyber-blue/10 flex items-start gap-2 text-cyber-blue/80 hover:text-cyber-blue transition-colors"
             >

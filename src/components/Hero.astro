@@ -1,8 +1,15 @@
 ---
-import { profile } from '../data/profile';
+import { getContent, localePath, type Locale } from '../i18n';
 import SolarSystem from './SolarSystem.astro';
 import CyberButton from './CyberButton.astro';
 import Reveal from './Reveal.astro';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = getContent(lang);
 ---
 
 <section id="home" class="min-h-screen flex items-center pt-24 pb-16 relative overflow-hidden">
@@ -33,31 +40,31 @@ import Reveal from './Reveal.astro';
               ></span>
               <span class="relative inline-flex size-2 rounded-full bg-cyber-blue"></span>
             </span>
-            Available for Senior AI Engineering Work
+            {t.ui.availability}
           </span>
         </Reveal>
 
         <Reveal direction="up" delay={100}>
           <h1 class="text-4xl lg:text-6xl font-bold mb-4 font-future leading-[1.1] tracking-tight">
-            <span class="text-cyber-blue text-shadow-glow">{profile.heroLead}</span>
-            {' '}{profile.heroRest}
+            <span class="text-cyber-blue text-shadow-glow">{t.profile.heroLead}</span>
+            {' '}{t.profile.heroRest}
           </h1>
         </Reveal>
 
         <Reveal direction="up" delay={200}>
           <p class="text-cyber-blue/80 font-future text-sm md:text-base mb-5 tracking-wide">
-            {profile.roleFull}
+            {t.profile.roleFull}
           </p>
         </Reveal>
 
         <Reveal direction="up" delay={300}>
-          <p class="text-gray-300 text-lg mb-8 max-w-xl leading-relaxed">{profile.heroBlurb}</p>
+          <p class="text-gray-300 text-lg mb-8 max-w-xl leading-relaxed">{t.profile.heroBlurb}</p>
         </Reveal>
 
         <Reveal direction="up" delay={400}>
           <div class="flex flex-wrap gap-4">
-            <CyberButton href="#projects" smooth>View Work</CyberButton>
-            <CyberButton href="/about" variant="outline">My Background</CyberButton>
+            <CyberButton href="#projects" smooth>{t.ui.viewWork}</CyberButton>
+            <CyberButton href={localePath(lang, "/about")} variant="outline">{t.ui.myBackground}</CyberButton>
           </div>
         </Reveal>
 

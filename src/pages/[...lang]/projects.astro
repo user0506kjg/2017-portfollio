@@ -1,42 +1,60 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import SectionAmbience from '../components/SectionAmbience.astro';
-import Reveal from '../components/Reveal.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import CyberButton from '../components/CyberButton.astro';
-import { profile, projectFilters, projects } from '../data/profile';
+import MainLayout from '../../layouts/MainLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import SectionAmbience from '../../components/SectionAmbience.astro';
+import Reveal from '../../components/Reveal.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CyberButton from '../../components/CyberButton.astro';
+import {
+  getContent,
+  getFilters,
+  getProjects,
+  localePath,
+  localeStaticPaths,
+  type Locale,
+} from '../../i18n';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const { lang } = Astro.props as { lang: Locale };
+const t = getContent(lang);
+const projects = getProjects(lang);
+const filters = getFilters(lang);
 
 /**
  * Filters with no matching project yet. Rather than let those tabs render an
  * empty grid as though something broke, each gets an explicit empty state.
- * This list is computed at build time, so it empties itself as soon as a
- * project carries the matching tag.
+ * Computed at build time, so it empties itself as soon as a project carries
+ * the matching tag.
  */
 const usedTags = new Set(projects.map((p) => p.tag));
-const emptyFilters = projectFilters.filter((f) => f.key !== 'all' && !usedTags.has(f.key));
+const emptyFilters = filters.filter((f) => f.key !== 'all' && !usedTags.has(f.key));
 ---
 
 <MainLayout
-  title={`Work | ${profile.name}`}
-  description="Case studies in RAG pipelines, AI agent workflows, LLM evaluation, backend services, data pipelines, and system integration."
+  lang={lang}
+  path="/projects"
+  title={`${t.meta.projectsTitle} | ${t.profile.name}`}
+  description={t.meta.projectsDescription}
 >
   <section id="projects" class="pt-32 lg:pt-40 pb-24 relative overflow-hidden">
     <SectionAmbience fade="bottom" />
 
     <div class="max-w-7xl mx-auto px-6 relative">
       <SectionHeading
-        lead="Selected"
-        accent="Work"
+        lead={t.ui.projectsLead}
+        accent={t.ui.projectsAccent}
         level="h1"
-        subtitle="Case studies built from production systems across three engineering roles. Each card notes the role the work comes from."
+        subtitle={t.ui.projectsSubtitle}
       />
 
       <div x-data="{ activeTab: 'all' }">
         <!-- Filter tabs -->
         <Reveal class="flex flex-wrap justify-center gap-4 mb-12">
           {
-            projectFilters.map((f) => (
+            filters.map((f) => (
               <button
                 type="button"
                 x-on:click={`activeTab = '${f.key}'`}
@@ -56,6 +74,7 @@ const emptyFilters = projectFilters.filter((f) => f.key !== 'all' && !usedTags.h
             projects.map((project, i) => (
               <ProjectCard
                 project={project}
+                lang={lang}
                 delay={(((i % 3) + 1) * 100) as 100 | 200 | 300}
                 filterable
               />
@@ -75,16 +94,14 @@ const emptyFilters = projectFilters.filter((f) => f.key !== 'all' && !usedTags.h
               <div class="w-14 h-14 mx-auto rounded-full bg-cyber-blue/10 border border-cyber-blue/30 flex items-center justify-center mb-5">
                 <i class="fas fa-folder-open text-cyber-blue text-xl" aria-hidden="true" />
               </div>
-              <p class="text-cyber-blue font-future text-lg mb-2">Nothing here yet</p>
+              <p class="text-cyber-blue font-future text-lg mb-2">{t.ui.nothingHereTitle}</p>
               <p class="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
-                No {f.label} work is published on this site yet. Check back, or take a look at
-                the other categories.
+                {t.ui.nothingHereBody}
               </p>
             </div>
           ))
         }
       </div>
-
     </div>
   </section>
 
@@ -94,17 +111,15 @@ const emptyFilters = projectFilters.filter((f) => f.key !== 'all' && !usedTags.h
     <div class="max-w-4xl mx-auto px-6 relative text-center">
       <Reveal>
         <h2 class="text-3xl lg:text-4xl font-bold mb-6 font-future">
-          Where this <span class="text-cyber-blue text-shadow-glow">came from</span>
+          {t.ui.projectsCtaLead}
+          <span class="text-cyber-blue text-shadow-glow">{t.ui.projectsCtaAccent}</span>
         </h2>
       </Reveal>
       <Reveal delay={100}>
-        <p class="text-gray-300 mb-10 max-w-xl mx-auto leading-relaxed">
-          Nine years across three engineering roles, from AI integration work through to
-          backend architecture. The full record is on the about page.
-        </p>
+        <p class="text-gray-300 mb-10 max-w-xl mx-auto leading-relaxed">{t.ui.projectsCtaBody}</p>
       </Reveal>
       <Reveal delay={200}>
-        <CyberButton href="/about">My Background</CyberButton>
+        <CyberButton href={localePath(lang, '/about')}>{t.ui.myBackground}</CyberButton>
       </Reveal>
     </div>
   </section>

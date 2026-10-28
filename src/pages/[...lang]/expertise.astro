@@ -1,15 +1,24 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import SectionAmbience from '../components/SectionAmbience.astro';
-import Reveal from '../components/Reveal.astro';
-import CyberButton from '../components/CyberButton.astro';
-import { process, profile, skillGroups } from '../data/profile';
+import MainLayout from '../../layouts/MainLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import SectionAmbience from '../../components/SectionAmbience.astro';
+import Reveal from '../../components/Reveal.astro';
+import CyberButton from '../../components/CyberButton.astro';
+import { getContent, localePath, localeStaticPaths, type Locale } from '../../i18n';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const { lang } = Astro.props as { lang: Locale };
+const t = getContent(lang);
 ---
 
 <MainLayout
-  title={`Expertise | ${profile.name}`}
-  description="Technical expertise across AI & LLMs, agent orchestration, backend engineering, data, frontend, and engineering practice."
+  lang={lang}
+  path="/expertise"
+  title={`${t.meta.expertiseTitle} | ${t.profile.name}`}
+  description={t.meta.expertiseDescription}
 >
   <!-- ================= EXPERTISE ================= -->
   <section
@@ -20,15 +29,15 @@ import { process, profile, skillGroups } from '../data/profile';
 
     <div class="max-w-7xl mx-auto px-6 relative">
       <SectionHeading
-        lead="Technical"
-        accent="Expertise"
+        lead={t.ui.expertiseLead}
+        accent={t.ui.expertiseAccent}
         level="h1"
-        subtitle="Six areas I work across, from model integration down to the database."
+        subtitle={t.ui.expertiseSubtitle}
       />
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {
-          skillGroups.map((group, i) => (
+          t.skillGroups.map((group, i) => (
             <Reveal
               delay={(((i % 3) + 1) * 100) as 100 | 200 | 300}
               class="group relative"
@@ -43,7 +52,7 @@ import { process, profile, skillGroups } from '../data/profile';
                   {group.title}
                 </h3>
                 <p class="text-gray-300 mb-5 leading-relaxed">{group.blurb}</p>
-                <ul class="text-gray-300 text-sm space-y-2.5" aria-label={`${group.title} skills`}>
+                <ul class="text-gray-300 text-sm space-y-2.5" aria-label={group.title}>
                   {group.items.map((item) => (
                     <li class="flex items-start gap-3">
                       <i
@@ -68,9 +77,9 @@ import { process, profile, skillGroups } from '../data/profile';
 
     <div class="max-w-7xl mx-auto px-6 relative">
       <SectionHeading
-        lead="How I"
-        accent="Work"
-        subtitle="The delivery lifecycle I follow, from first conversation to ongoing maintenance."
+        lead={t.ui.processLead}
+        accent={t.ui.processAccent}
+        subtitle={t.ui.processSubtitle}
       />
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
@@ -82,7 +91,7 @@ import { process, profile, skillGroups } from '../data/profile';
         </div>
 
         {
-          process.map((step, i) => (
+          t.process.map((step, i) => (
             <Reveal delay={((i + 1) * 100) as 100 | 200 | 300 | 400} class="group relative">
               <div class="card-halo rounded-xl" aria-hidden="true" />
               <div class="card p-6 text-center">
@@ -110,18 +119,15 @@ import { process, profile, skillGroups } from '../data/profile';
     <div class="max-w-4xl mx-auto px-6 relative text-center">
       <Reveal>
         <h2 class="text-3xl lg:text-4xl font-bold mb-6 font-future">
-          This stack, applied to
-          <span class="text-cyber-blue text-shadow-glow">real systems</span>
+          {t.ui.expertiseCtaLead}
+          <span class="text-cyber-blue text-shadow-glow">{t.ui.expertiseCtaAccent}</span>
         </h2>
       </Reveal>
       <Reveal delay={100}>
-        <p class="text-gray-300 mb-10 max-w-xl mx-auto leading-relaxed">
-          Every capability above is drawn from production work, not side projects. Here's what
-          that looked like in practice.
-        </p>
+        <p class="text-gray-300 mb-10 max-w-xl mx-auto leading-relaxed">{t.ui.expertiseCtaBody}</p>
       </Reveal>
       <Reveal delay={200}>
-        <CyberButton href="/projects">See The Work</CyberButton>
+        <CyberButton href={localePath(lang, '/projects')}>{t.ui.seeTheWork}</CyberButton>
       </Reveal>
     </div>
   </section>

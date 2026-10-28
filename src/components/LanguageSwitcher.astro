@@ -1,0 +1,101 @@
+---
+import { alternates, getContent, localeMeta, type Locale } from '../i18n';
+import FlagIcon from './FlagIcon.astro';
+
+/**
+ * Language switcher.
+ *
+ * Every locale is a real, pre-rendered URL, so each option is an ordinary
+ * anchor to the same page in that language. No client-side string swapping
+ * and nothing to re-render — the chosen language is simply the page you land
+ * on, which also means it survives a refresh and can be linked to directly.
+ */
+interface Props {
+  lang: Locale;
+  /** Page path without the locale prefix, e.g. '/about'. */
+  path: string;
+  /** Mobile variant renders as a row rather than a dropdown. */
+  inline?: boolean;
+}
+
+const { lang, path, inline = false } = Astro.props;
+const t = getContent(lang).ui;
+const options = alternates(path);
+const active = localeMeta[lang];
+---
+
+{
+  inline ? (
+    <div class="flex items-center gap-2" role="group" aria-label={t.languageLabel}>
+      {options.map((o) => (
+        <a
+          href={o.href}
+          hreflang={o.htmlLang}
+          lang={o.htmlLang}
+          aria-current={o.lang === lang ? 'true' : undefined}
+          class:list={[
+            'flex items-center gap-2 px-3 py-2 rounded-md border text-sm font-future transition-colors',
+            o.lang === lang
+              ? 'border-cyber-blue bg-cyber-blue/15 text-cyber-blue'
+              : 'border-cyber-blue/25 text-white hover:border-cyber-blue/60 hover:bg-cyber-blue/10',
+          ]}
+        >
+          <FlagIcon code={o.flag} class="w-5 h-auto rounded-xs shrink-0" />
+          <span>{o.label}</span>
+        </a>
+      ))}
+    </div>
+  ) : (
+    <div
+      x-data="{ open: false }"
+      x-on:keydown.escape.window="open = false"
+      class="relative"
+    >
+      <button
+        type="button"
+        x-on:click="open = !open"
+        x-bind:aria-expanded="open.toString()"
+        aria-haspopup="true"
+        aria-label={t.languageLabel}
+        class="flex items-center gap-2 px-3 py-2 rounded-md border border-cyber-blue/30 text-sm font-future text-white hover:border-cyber-blue/70 hover:bg-cyber-blue/10 transition-colors"
+      >
+        <FlagIcon code={active.flag} class="w-5 h-auto rounded-xs shrink-0" />
+        <span class="text-cyber-blue">{active.short}</span>
+        <i class="fas fa-chevron-down text-[10px] text-cyber-blue/70" aria-hidden="true" />
+      </button>
+
+      <div
+        x-show="open"
+        x-on:click.outside="open = false"
+        x-transition.opacity.duration.150ms
+        class="absolute right-0 mt-2 w-44 rounded-md border border-cyber-blue/30 bg-cyber-dark/95 backdrop-blur-md shadow-lg shadow-cyber-blue/10 overflow-hidden z-50"
+        style="display: none;"
+      >
+        <ul>
+          {options.map((o) => (
+            <li>
+              <a
+                href={o.href}
+                hreflang={o.htmlLang}
+                lang={o.htmlLang}
+                aria-current={o.lang === lang ? 'true' : undefined}
+                class:list={[
+                  'flex items-center gap-3 px-4 py-3 text-sm transition-colors',
+                  o.lang === lang
+                    ? 'bg-cyber-blue/15 text-cyber-blue'
+                    : 'text-white hover:bg-cyber-blue/10 hover:text-cyber-blue',
+                ]}
+              >
+                <FlagIcon code={o.flag} class="w-5 h-auto rounded-xs shrink-0" />
+                <span class="font-future">{o.label}</span>
+                {o.lang === lang && (
+                  <i class="fas fa-check text-[10px] ms-auto" aria-hidden="true" />
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}

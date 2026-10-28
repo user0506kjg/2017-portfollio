@@ -3,38 +3,56 @@ import '../styles/global.css';
 import AmbientBackground from '../components/AmbientBackground.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { profile } from '../data/profile';
+import { alternates, defaultLocale, getContent, localeMeta, type Locale } from '../i18n';
 
 interface Props {
+  lang: Locale;
+  /** Page path without the locale prefix, e.g. '/about'. Drives the switcher. */
+  path: string;
   title?: string;
   description?: string;
 }
 
-const {
-  title = `${profile.name} | ${profile.role}`,
-  description = profile.heroBlurb,
-} = Astro.props;
+const { lang, path, title, description } = Astro.props;
+const t = getContent(lang);
+
+const pageTitle = title ?? `${t.profile.name} | ${t.profile.role}`;
+const pageDescription = description ?? t.meta.homeDescription;
+const langs = alternates(path);
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth no-js">
+<html lang={localeMeta[lang].htmlLang} class="scroll-smooth no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="author" content={profile.name} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="author" content={t.profile.name} />
     <meta name="generator" content={Astro.generator} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={localeMeta[lang].htmlLang.replace('-', '_')} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+
+    {/* Tell search engines the three locales are the same page, not duplicates. */}
+    {
+      langs.map((l) => (
+        <link rel="alternate" hreflang={l.htmlLang} href={new URL(l.href, Astro.site)} />
+      ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(langs.find((l) => l.lang === defaultLocale)!.href, Astro.site)}
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -65,22 +83,22 @@ const {
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-cyber-blue focus:text-cyber-dark focus:px-4 focus:py-2 focus:rounded-md focus:font-bold"
     >
-      Skip to content
+      {t.ui.skipToContent}
     </a>
 
-    <Header />
+    <Header lang={lang} path={path} />
 
     <main id="main" class="relative z-10">
       <slot />
     </main>
 
-    <Footer />
+    <Footer lang={lang} />
 
     <button
       id="back-to-top"
       class="fixed bottom-6 end-6 bg-cyber-dark/80 backdrop-blur-sm border border-cyber-blue text-cyber-blue size-12 flex items-center justify-center rounded-full opacity-0 invisible transition-all duration-300 z-50 hover:bg-cyber-blue hover:text-cyber-dark"
-      aria-label="Back to top"
-      title="Back to top"
+      aria-label={t.ui.backToTop}
+      title={t.ui.backToTop}
     >
       {/* Inline SVG rather than an icon font: this control must never be a
           blank circle if the icon CDN is blocked or slow. */}

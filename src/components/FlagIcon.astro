@@ -1,0 +1,76 @@
+---
+/**
+ * Inline SVG flags.
+ *
+ * Drawn here rather than pulled from an emoji or a sprite service: flag emoji
+ * do not render as flags on Windows at all, which would leave the switcher
+ * showing bare letters for most desktop visitors.
+ */
+interface Props {
+  code: 'GB' | 'BR' | 'ES';
+  class?: string;
+}
+
+const { code, class: className = '' } = Astro.props;
+---
+
+{
+  code === 'GB' && (
+    <svg
+      viewBox="0 0 60 30"
+      class={className}
+      role="presentation"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <clipPath id="fl-gb-a">
+        <path d="M0 0v30h60V0z" />
+      </clipPath>
+      <clipPath id="fl-gb-b">
+        <path d="M30 15h30v15zv15H0zH0V0zV0h30z" />
+      </clipPath>
+      <g clip-path="url(#fl-gb-a)">
+        <path d="M0 0v30h60V0z" fill="#012169" />
+        <path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6" />
+        <path d="M0 0l60 30m0-30L0 30" clip-path="url(#fl-gb-b)" stroke="#C8102E" stroke-width="4" />
+        <path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10" />
+        <path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6" />
+      </g>
+    </svg>
+  )
+}
+
+{
+  code === 'BR' && (
+    <svg
+      viewBox="0 0 60 42"
+      class={className}
+      role="presentation"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path fill="#009B3A" d="M0 0h60v42H0z" />
+      <path fill="#FEDF00" d="M30 4.2 55.5 21 30 37.8 4.5 21z" />
+      <circle cx="30" cy="21" r="9.2" fill="#002776" />
+      <path
+        d="M21.4 17.3a28 28 0 0 1 17.6 5.4 9.2 9.2 0 0 1-.4 1.6 26.3 26.3 0 0 0-17.9-5.4 9.2 9.2 0 0 1 .7-1.6z"
+        fill="#fff"
+      />
+    </svg>
+  )
+}
+
+{
+  code === 'ES' && (
+    <svg
+      viewBox="0 0 60 40"
+      class={className}
+      role="presentation"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path fill="#AA151B" d="M0 0h60v40H0z" />
+      <path fill="#F1BF00" d="M0 10h60v20H0z" />
+    </svg>
+  )
+}

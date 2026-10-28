@@ -174,6 +174,8 @@ way, so it does not need to be blue to fit.
 
 ## Replacing one
 
-Drop a new file into this folder and point the matching `image` field in
-`src/data/profile.ts` at its filename (update `alt` too). No other changes
-needed — the component resolves images by filename.
+Drop a new file into this folder and point that project's `image` field in
+`src/data/projects.ts` at its filename. The component resolves images by
+filename, so nothing else needs touching — except the `alt` text, which lives
+per language in `src/i18n/projects/en.ts`, `pt.ts` and `es.ts` and should be
+updated in all three.

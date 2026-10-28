@@ -1,41 +1,47 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import Hero from '../components/Hero.astro';
-import Counters from '../components/Counters.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import SectionAmbience from '../components/SectionAmbience.astro';
-import Reveal from '../components/Reveal.astro';
-import CyberButton from '../components/CyberButton.astro';
-import { coreStack, differentiators, profile, projects } from '../data/profile';
+import MainLayout from '../../layouts/MainLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Counters from '../../components/Counters.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import SectionAmbience from '../../components/SectionAmbience.astro';
+import Reveal from '../../components/Reveal.astro';
+import CyberButton from '../../components/CyberButton.astro';
+import { getContent, getProjects, localePath, localeStaticPaths, type Locale } from '../../i18n';
 
-const featured = projects.slice(0, 6);
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const { lang } = Astro.props as { lang: Locale };
+const t = getContent(lang);
+const featured = getProjects(lang).slice(0, 6);
 ---
 
-<MainLayout>
-  <Hero />
+<MainLayout lang={lang} path="/">
+  <Hero lang={lang} />
 
   <!-- ================= ABOUT ================= -->
   <section id="about" class="bg-cyber-dark/60 py-24 relative overflow-hidden">
     <SectionAmbience fade="both" />
 
     <div class="max-w-7xl mx-auto px-6 relative">
-      <SectionHeading lead="About" accent="Me" />
+      <SectionHeading lead={t.ui.homeAboutLead} accent={t.ui.homeAboutAccent} />
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
         <Reveal direction="left">
           <h3 class="text-2xl font-bold mb-5 text-cyber-blue font-future">
-            Engineering-led AI development
+            {t.ui.homeApproachHeading}
           </h3>
-          <p class="text-gray-300 mb-5 leading-relaxed">{profile.summary}</p>
-          <p class="text-gray-300 leading-relaxed">{profile.summaryCont}</p>
+          <p class="text-gray-300 mb-5 leading-relaxed">{t.profile.summary}</p>
+          <p class="text-gray-300 leading-relaxed">{t.profile.summaryCont}</p>
         </Reveal>
 
         <Reveal direction="right" delay={200}>
-          <h3 class="text-2xl font-bold mb-5 text-cyber-blue font-future">Core Stack</h3>
+          <h3 class="text-2xl font-bold mb-5 text-cyber-blue font-future">{t.ui.homeCoreStack}</h3>
           <div class="flex flex-wrap gap-3 mb-8">
             {
-              coreStack.map((tech) => (
+              t.coreStack.map((tech) => (
                 <span class="px-4 py-2 bg-cyber-blue/10 border border-cyber-blue/20 rounded-md text-sm text-cyber-blue font-future hover:border-cyber-blue/50 hover:bg-cyber-blue/20 transition-all duration-300">
                   {tech}
                 </span>
@@ -53,17 +59,13 @@ const featured = projects.slice(0, 6);
                   <i class="fas fa-graduation-cap text-cyber-blue" aria-hidden="true"></i>
                 </div>
                 <div>
-                  <h4 class="font-bold text-cyber-blue font-future mb-1">
-                    University of Cambridge
-                  </h4>
-                  <p class="text-gray-300 text-sm">
-                    MPhil in Advanced Computer Science &middot; BA in Computer Science
-                  </p>
+                  <h4 class="font-bold text-cyber-blue font-future mb-1">{t.ui.homeUniversity}</h4>
+                  <p class="text-gray-300 text-sm">{t.ui.homeDegrees}</p>
                   <a
-                    href="/about"
+                    href={localePath(lang, '/about')}
                     class="text-cyber-blue text-sm font-future mt-3 inline-flex items-center gap-2 hover:gap-3 transition-all"
                   >
-                    Full background
+                    {t.ui.fullBackground}
                     <i class="fas fa-arrow-right text-xs" aria-hidden="true"></i>
                   </a>
                 </div>
@@ -73,7 +75,7 @@ const featured = projects.slice(0, 6);
         </Reveal>
       </div>
 
-      <Counters />
+      <Counters lang={lang} />
     </div>
   </section>
 
@@ -83,22 +85,26 @@ const featured = projects.slice(0, 6);
 
     <div class="max-w-7xl mx-auto px-6 relative">
       <SectionHeading
-        lead="Selected"
-        accent="Work"
-        subtitle="Case studies drawn from production systems I have designed and shipped across three engineering roles."
+        lead={t.ui.homeWorkLead}
+        accent={t.ui.homeWorkAccent}
+        subtitle={t.ui.homeWorkSubtitle}
       />
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {
           featured.map((project, i) => (
-            <ProjectCard project={project} delay={(((i % 3) + 1) * 100) as 100 | 200 | 300} />
+            <ProjectCard
+              project={project}
+              lang={lang}
+              delay={(((i % 3) + 1) * 100) as 100 | 200 | 300}
+            />
           ))
         }
       </div>
 
       <Reveal class="flex justify-center mt-14">
-        <CyberButton href="/projects" variant="outline">
-          All Work
+        <CyberButton href={localePath(lang, '/projects')} variant="outline">
+          {t.ui.allWork}
           <i class="fas fa-arrow-right text-sm" aria-hidden="true"></i>
         </CyberButton>
       </Reveal>
@@ -111,18 +117,17 @@ const featured = projects.slice(0, 6);
     <div class="max-w-4xl mx-auto px-6 relative text-center">
       <Reveal>
         <h2 class="text-4xl lg:text-5xl font-bold mb-6 font-future leading-tight">
-          <span class="text-cyber-blue text-shadow-glow">Build</span> something intelligent
+          <span class="text-cyber-blue text-shadow-glow">{t.ui.homeCtaLeadAccent}</span>
+          {' '}{t.ui.homeCtaLeadRest}
         </h2>
       </Reveal>
       <Reveal delay={100}>
         <p class="text-gray-300 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-          Whether you need an LLM integrated into an existing product, an agent workflow to
-          automate a multistep process, or a backend built to carry it — I can take it from
-          technical design through to production.
+          {t.ui.homeCtaBody}
         </p>
       </Reveal>
       <Reveal delay={200}>
-        <CyberButton href="/expertise">Explore My Expertise</CyberButton>
+        <CyberButton href={localePath(lang, '/expertise')}>{t.ui.exploreExpertise}</CyberButton>
       </Reveal>
     </div>
   </section>
@@ -133,14 +138,14 @@ const featured = projects.slice(0, 6);
 
     <div class="max-w-7xl mx-auto px-6 relative">
       <SectionHeading
-        lead="Why Work"
-        accent="With Me"
-        subtitle="How I approach building AI systems that have to survive contact with production."
+        lead={t.ui.homeWhyLead}
+        accent={t.ui.homeWhyAccent}
+        subtitle={t.ui.homeWhySubtitle}
       />
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {
-          differentiators.map((item, i) => (
+          t.differentiators.map((item, i) => (
             <Reveal delay={(((i % 3) + 1) * 100) as 100 | 200 | 300} class="group relative">
               <div class="card-halo rounded-xl" aria-hidden="true" />
               <div class="card p-6">

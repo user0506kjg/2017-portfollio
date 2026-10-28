@@ -3,32 +3,48 @@ import MainLayout from '../layouts/MainLayout.astro';
 import CyberButton from '../components/CyberButton.astro';
 import Reveal from '../components/Reveal.astro';
 import SectionAmbience from '../components/SectionAmbience.astro';
-import { profile } from '../data/profile';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import { defaultLocale, getContent, locales, localePath } from '../i18n';
+
+/**
+ * A static host serves one 404 document for every unknown URL, including ones
+ * under /pt/ and /es/, so this page cannot know the visitor's language. It
+ * renders in the default locale and offers the other two explicitly rather
+ * than guessing.
+ */
+const lang = defaultLocale;
+const t = getContent(lang);
 ---
 
-<MainLayout title={`Page Not Found | ${profile.name}`}>
+<MainLayout lang={lang} path="/" title={`${t.ui.notFoundTitle} | ${t.profile.name}`}>
   <section class="min-h-[80vh] flex items-center relative overflow-hidden pt-24">
     <SectionAmbience />
     <div class="max-w-2xl mx-auto px-6 relative text-center">
       <Reveal>
-        <p
-          class="font-future text-7xl md:text-9xl font-bold text-cyber-blue text-shadow-glow mb-6"
-        >
+        <p class="font-future text-7xl md:text-9xl font-bold text-cyber-blue text-shadow-glow mb-6">
           404
         </p>
       </Reveal>
       <Reveal delay={100}>
-        <h1 class="text-2xl md:text-3xl font-bold mb-5 font-future">Signal lost</h1>
+        <h1 class="text-2xl md:text-3xl font-bold mb-5 font-future">{t.ui.notFoundHeading}</h1>
       </Reveal>
       <Reveal delay={200}>
-        <p class="text-gray-300 mb-10 leading-relaxed">
-          That page doesn't exist. Let's get you back to something useful.
-        </p>
+        <p class="text-gray-300 mb-10 leading-relaxed">{t.ui.notFoundBody}</p>
       </Reveal>
       <Reveal delay={300}>
         <div class="flex flex-wrap gap-4 justify-center">
-          <CyberButton href="/">Back Home</CyberButton>
-          <CyberButton href="/projects" variant="outline">View Work</CyberButton>
+          <CyberButton href={localePath(lang, '/')}>{t.ui.backHome}</CyberButton>
+          <CyberButton href={localePath(lang, '/projects')} variant="outline">
+            {t.ui.viewWork}
+          </CyberButton>
+        </div>
+      </Reveal>
+      <Reveal delay={400}>
+        <div class="mt-12 pt-8 border-t border-cyber-blue/10 flex flex-col items-center gap-4">
+          <p class="text-xs uppercase tracking-widest text-cyber-blue/70 font-future">
+            {locales.map((l) => getContent(l).ui.languageLabel).join(' · ')}
+          </p>
+          <LanguageSwitcher lang={lang} path="/" inline />
         </div>
       </Reveal>
     </div>

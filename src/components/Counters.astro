@@ -1,6 +1,13 @@
 ---
-import { stats } from '../data/profile';
+import { getContent, type Locale } from '../i18n';
 import Reveal from './Reveal.astro';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const stats = getContent(lang).stats;
 ---
 
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">

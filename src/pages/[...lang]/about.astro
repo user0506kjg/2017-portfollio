@@ -1,16 +1,25 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import SectionAmbience from '../components/SectionAmbience.astro';
-import Reveal from '../components/Reveal.astro';
-import Counters from '../components/Counters.astro';
-import CyberButton from '../components/CyberButton.astro';
-import { education, experience, profile } from '../data/profile';
+import MainLayout from '../../layouts/MainLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import SectionAmbience from '../../components/SectionAmbience.astro';
+import Reveal from '../../components/Reveal.astro';
+import Counters from '../../components/Counters.astro';
+import CyberButton from '../../components/CyberButton.astro';
+import { getContent, localePath, localeStaticPaths, type Locale } from '../../i18n';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const { lang } = Astro.props as { lang: Locale };
+const t = getContent(lang);
 ---
 
 <MainLayout
-  title={`About | ${profile.name}`}
-  description={`Background, professional experience, and education of ${profile.name}, ${profile.role}.`}
+  lang={lang}
+  path="/about"
+  title={`${t.meta.aboutTitle} | ${t.profile.name}`}
+  description={t.meta.aboutDescription}
 >
   <!-- ================= PAGE HERO ================= -->
   <section
@@ -23,20 +32,20 @@ import { education, experience, profile } from '../data/profile';
       <div class="max-w-3xl">
         <Reveal>
           <p class="text-cyber-blue font-future text-sm tracking-[0.25em] uppercase mb-4">
-            About
+            {t.ui.aboutEyebrow}
           </p>
         </Reveal>
         <Reveal delay={100}>
           <h1 class="text-4xl lg:text-6xl font-bold mb-6 font-future leading-[1.1] tracking-tight">
-            {profile.given}{' '}
-            <span class="text-cyber-blue text-shadow-glow">{profile.family}</span>
+            {t.profile.given}{' '}
+            <span class="text-cyber-blue text-shadow-glow">{t.profile.family}</span>
           </h1>
         </Reveal>
         <Reveal delay={200}>
-          <p class="text-cyber-blue/80 font-future mb-6">{profile.roleFull}</p>
+          <p class="text-cyber-blue/80 font-future mb-6">{t.profile.roleFull}</p>
         </Reveal>
         <Reveal delay={300}>
-          <p class="text-gray-300 text-lg leading-relaxed">{profile.summary}</p>
+          <p class="text-gray-300 text-lg leading-relaxed">{t.profile.summary}</p>
         </Reveal>
       </div>
     </div>
@@ -47,7 +56,7 @@ import { education, experience, profile } from '../data/profile';
     <SectionAmbience fade="top" orbs={false} />
 
     <div class="max-w-7xl mx-auto px-6 relative">
-      <SectionHeading lead="My" accent="Approach" />
+      <SectionHeading lead={t.ui.aboutApproachLead} accent={t.ui.aboutApproachAccent} />
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
         <Reveal direction="left">
@@ -60,9 +69,9 @@ import { education, experience, profile } from '../data/profile';
                 <i class="fas fa-compass-drafting text-cyber-blue text-xl" aria-hidden="true"></i>
               </div>
               <h3 class="text-xl font-bold mb-4 text-cyber-blue font-future">
-                Pragmatic Engineering
+                {t.ui.aboutPragmatic}
               </h3>
-              <p class="text-gray-300 leading-relaxed">{profile.summaryCont}</p>
+              <p class="text-gray-300 leading-relaxed">{t.profile.summaryCont}</p>
             </div>
           </div>
         </Reveal>
@@ -77,17 +86,11 @@ import { education, experience, profile } from '../data/profile';
                 <i class="fas fa-layer-group text-cyber-blue text-xl" aria-hidden="true"></i>
               </div>
               <h3 class="text-xl font-bold mb-4 text-cyber-blue font-future">
-                What I Specialise In
+                {t.ui.aboutSpecialise}
               </h3>
               <ul class="space-y-3 text-gray-300">
                 {
-                  [
-                    'LLM orchestration and integration into existing business systems',
-                    'Retrieval-augmented generation (RAG) pipelines and semantic search',
-                    'Autonomous agent workflows and process automation',
-                    'Backend architecture, API design, and data pipelines',
-                    'Evaluating and hardening model output for production use',
-                  ].map((item) => (
+                  t.ui.aboutSpecialiseItems.map((item) => (
                     <li class="flex items-start gap-3">
                       <i
                         class="fas fa-check text-cyber-blue mt-1 text-sm shrink-0"
@@ -103,7 +106,7 @@ import { education, experience, profile } from '../data/profile';
         </Reveal>
       </div>
 
-      <Counters />
+      <Counters lang={lang} />
     </div>
   </section>
 
@@ -113,9 +116,9 @@ import { education, experience, profile } from '../data/profile';
 
     <div class="max-w-7xl mx-auto px-6 relative">
       <SectionHeading
-        lead="Professional"
-        accent="Experience"
-        subtitle="Nine years building AI-enabled applications, backend services, and system integrations."
+        lead={t.ui.aboutExperienceLead}
+        accent={t.ui.aboutExperienceAccent}
+        subtitle={t.ui.aboutExperienceSubtitle}
       />
 
       <div class="relative max-w-6xl mx-auto">
@@ -128,9 +131,8 @@ import { education, experience, profile } from '../data/profile';
 
         <div class="space-y-10">
           {
-            experience.map((role) => (
+            t.experience.map((role) => (
               <Reveal direction="up" class="relative ps-12 md:ps-16">
-                <!-- node -->
                 <div
                   class="absolute left-4 top-8 -translate-x-1/2 w-4 h-4 rounded-full bg-cyber-dark border-2 border-cyber-blue glow z-10"
                   aria-hidden="true"
@@ -144,7 +146,6 @@ import { education, experience, profile } from '../data/profile';
                   <div class="card-halo rounded-xl" aria-hidden="true" />
                   {/* Fixed min-height keeps all three cards the same shape. */}
                   <div class="card p-6 md:p-8 flex flex-col lg:min-h-[30rem] xl:min-h-[27rem]">
-                    <!-- header bar -->
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-5 mb-6 border-b border-cyber-blue/15">
                       <div>
                         <h3 class="text-xl md:text-2xl font-bold text-cyber-blue font-future leading-snug">
@@ -160,7 +161,7 @@ import { education, experience, profile } from '../data/profile';
                           </span>
                           {role.current && (
                             <span class="text-xs font-future text-cyber-dark bg-cyber-blue rounded-full px-3 py-1 font-bold">
-                              Current
+                              {t.ui.current}
                             </span>
                           )}
                         </div>
@@ -171,7 +172,6 @@ import { education, experience, profile } from '../data/profile';
                       </div>
                     </div>
 
-                    <!-- bullets flow into columns so the card stays wide and short -->
                     <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-3 content-start grow">
                       {role.bullets.map((b) => (
                         <li class="flex items-start gap-3 text-gray-300 text-sm leading-relaxed">
@@ -198,11 +198,11 @@ import { education, experience, profile } from '../data/profile';
     <SectionAmbience fade="top" orbs={false} />
 
     <div class="max-w-7xl mx-auto px-6 relative">
-      <SectionHeading lead="" accent="Education" />
+      <SectionHeading lead="" accent={t.ui.aboutEducationAccent} />
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         {
-          education.map((item, i) => (
+          t.education.map((item, i) => (
             <Reveal delay={((i + 1) * 100) as 100 | 200} class="group relative">
               <div class="card-halo rounded-xl" aria-hidden="true" />
               <div class="card p-8 text-center">
@@ -228,18 +228,19 @@ import { education, experience, profile } from '../data/profile';
     <div class="max-w-4xl mx-auto px-6 relative text-center">
       <Reveal>
         <h2 class="text-3xl lg:text-4xl font-bold mb-6 font-future">
-          Currently open to <span class="text-cyber-blue text-shadow-glow">new work</span>
+          {t.ui.aboutCtaLead}{' '}
+          <span class="text-cyber-blue text-shadow-glow">{t.ui.aboutCtaAccent}</span>
         </h2>
       </Reveal>
       <Reveal delay={100}>
-        <p class="text-gray-300 mb-10 max-w-xl mx-auto leading-relaxed">
-          Senior AI engineering and LLM architecture — remote-first, contract or permanent.
-        </p>
+        <p class="text-gray-300 mb-10 max-w-xl mx-auto leading-relaxed">{t.ui.aboutCtaBody}</p>
       </Reveal>
       <Reveal delay={200}>
         <div class="flex flex-wrap gap-4 justify-center">
-          <CyberButton href="/projects">See My Work</CyberButton>
-          <CyberButton href="/expertise" variant="outline">My Expertise</CyberButton>
+          <CyberButton href={localePath(lang, '/projects')}>{t.ui.seeMyWork}</CyberButton>
+          <CyberButton href={localePath(lang, '/expertise')} variant="outline">
+            {t.ui.myExpertise}
+          </CyberButton>
         </div>
       </Reveal>
     </div>
