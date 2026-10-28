@@ -219,6 +219,7 @@ export const projects = [
       'Online storefront for a W-GMP and ISO certified Ayurvedic manufacturer in Haridwar, selling herbal supplements such as Hepato Care, Triphala and Ojas alongside Panchakarma therapy and consultation bookings, with shipping, payment and returns policies and RuPay checkout.',
     tech: ['WordPress', 'WooCommerce', 'Elementor', 'PHP 8.3'],
     source: 'theayurved.in',
+    href: 'https://theayurved.in/',
   },
   {
     slug: 'onlymassage',
@@ -231,6 +232,7 @@ export const projects = [
       'Two-sided marketplace for booking massage, physiotherapy and spa treatments. Customers search by service and date across eight treatment categories; practitioners onboard through a separate professional portal. Multi-language, with accounts for both sides of the market.',
     tech: ['Next.js', 'React', 'Node.js', 'Nginx'],
     source: 'onlymassage.io',
+    href: 'https://onlymassage.io',
   },
   {
     slug: 'secretspa',
@@ -243,6 +245,7 @@ export const projects = [
       "London's at-home beauty and wellness booking platform. Customers book DBS-checked, trade-tested therapists for hair, nails, massage, facials, waxing, IV drips and aesthetics between 6am and 10pm, with therapist ratings, live tracking, loyalty points and gift cards.",
     tech: ['Astro', 'Vercel', 'Vercel Blob', 'Wistia'],
     source: 'secretspa.co.uk',
+    href: 'https://secretspa.co.uk',
   },
   {
     // NOTE: a game-discovery PWA rather than a storefront — nothing is sold
@@ -258,6 +261,7 @@ export const projects = [
       'Installable progressive web app for finding PC games, surfacing Steam ratings, reviews and personalised recommendations. Built as a client-rendered single-page app with offline-capable install and a dark-first interface.',
     tech: ['React', 'Vite', 'PWA', 'Vercel'],
     source: 'dogsushi.app',
+    href: 'https://dogsushi.app/',
   },
 ];
 

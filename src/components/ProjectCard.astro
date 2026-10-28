@@ -29,8 +29,10 @@ interface Props {
     title: string;
     description: string;
     tech: string[];
-    /** Optional: the role the work came from. Omitted for standalone projects. */
+    /** Optional: the role the work came from, or the site it is published at. */
     source?: string;
+    /** Optional: live URL. When present the source line becomes a link. */
+    href?: string;
   };
   delay?: 100 | 200 | 300 | 400 | 500 | 600;
   filterable?: boolean;
@@ -101,13 +103,29 @@ const img = imageFor(project.image);
         }
       </div>
 
+      {/* Footer line: a link to the live site when there is one, otherwise the
+          role the work came from as plain text. */}
       {
-        project.source && (
-          <p class="text-gray-500 text-xs pt-4 border-t border-cyber-blue/10 flex items-start gap-2">
-            <i class="fas fa-briefcase mt-0.5 text-cyber-blue/50" aria-hidden="true" />
-            <span>{project.source}</span>
-          </p>
-        )
+        project.source &&
+          (project.href ? (
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${project.source} (opens in a new tab)`}
+              class="group/src text-xs pt-4 border-t border-cyber-blue/10 flex items-center gap-2 text-cyber-blue/80 hover:text-cyber-blue transition-colors"
+            >
+              <i class="fas fa-arrow-up-right-from-square text-cyber-blue/60" aria-hidden="true" />
+              <span class="underline decoration-cyber-blue/30 underline-offset-4 group-hover/src:decoration-cyber-blue">
+                {project.source}
+              </span>
+            </a>
+          ) : (
+            <p class="text-gray-500 text-xs pt-4 border-t border-cyber-blue/10 flex items-start gap-2">
+              <i class="fas fa-briefcase mt-0.5 text-cyber-blue/50" aria-hidden="true" />
+              <span>{project.source}</span>
+            </p>
+          ))
       }
     </div>
   </article>
