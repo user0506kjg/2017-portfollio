@@ -207,6 +207,11 @@ export const projects = [
    *
    * Images are each site's own brand asset (see CREDITS.md) — these are not
    * stock photos and are not CC0.
+   *
+   * The three blocks below record the batch each project arrived in, which is
+   * why the order looks the way it does. They are NOT the filter tabs: `tag`
+   * decides that, and it is set from what each site actually is, so the
+   * `category` badge on a card and the tab it appears under always agree.
    * -------------------------------------------------------------------- */
   {
     slug: 'theayurved',
@@ -271,14 +276,11 @@ export const projects = [
    *
    * Stacks below were read off each live site (generator meta tags, theme
    * paths, response headers), not assumed. Five of the eight run WordPress.
-   * Three do not, and their chips say what they actually run on:
+   * Three do not, so they are tagged `fullstack` rather than `wordpress`:
    *
    *   bertolla.com    static HTML + jQuery on Apache - no WordPress
    *   gulfmedtech.com redirects to klensvision.com, built in Webflow
    *   hivcarecascade  a static JSON-driven app, not a CMS
-   *
-   * They are grouped here as supplied. Change `tag` on any of them if you'd
-   * rather they sat under a different filter.
    * -------------------------------------------------------------------- */
   {
     slug: 'vibrantpharma',
@@ -349,7 +351,7 @@ export const projects = [
     // Static HTML + jQuery on Apache — no CMS.
     slug: 'bertolla',
     category: 'Static Site',
-    tag: 'wordpress',
+    tag: 'fullstack',
     image: 'wp-bertolla.jpg',
     alt: 'Cover art for the Epic Battle orchestral trailer album by Ivan Bertolla',
     title: 'Ivan Bertolla — Composer Portfolio',
@@ -363,7 +365,7 @@ export const projects = [
     // gulfmedtech.com redirects to klensvision.com; built in Webflow.
     slug: 'klens',
     category: 'Webflow',
-    tag: 'wordpress',
+    tag: 'fullstack',
     image: 'wp-klens.jpg',
     alt: 'A gloved hand holding a laparoscope during keyhole surgery',
     title: 'Klens — Surgical Device Launch Site',
@@ -377,7 +379,7 @@ export const projects = [
     // Static JSON-driven research app, not a CMS.
     slug: 'cascade',
     category: 'Web App',
-    tag: 'wordpress',
+    tag: 'fullstack',
     image: 'wp-cascade.jpg',
     alt: 'The CASCADE HIV care cascade database wordmark',
     title: 'CASCADE — HIV Care Cascade Database',
@@ -393,8 +395,12 @@ export const projects = [
    *
    * Same method as the sections above: titles and descriptions written from
    * each live site, stacks read off generator meta tags, asset paths and
-   * response headers. Where a site turned out not to match the label it was
-   * supplied under, the `category` badge says what it actually is.
+   * response headers.
+   *
+   * These arrived as one Full-stack list, but ten of them turned out to be
+   * something else once read, so they are tagged for what they are: eight
+   * WordPress builds, two storefronts and four AI products. The rest stay
+   * `fullstack`.
    *
    * Two of these are currently serving an empty response, so no imagery
    * could be taken from them and their cards carry a name panel instead —
@@ -403,7 +409,7 @@ export const projects = [
   {
     slug: 'jimeng',
     category: 'AI Platform',
-    tag: 'fullstack',
+    tag: 'ai',
     image: 'fs-jimeng.jpg',
     alt: 'The Jimeng AI brand mark over a generated portrait',
     title: 'Jimeng AI — Generative Image & Video Studio',
@@ -416,7 +422,7 @@ export const projects = [
   {
     slug: 'lialive',
     category: 'AI Agents',
-    tag: 'fullstack',
+    tag: 'ai',
     image: 'fs-lialive.jpg',
     alt: 'The LIA wordmark in gradient lettering on black',
     title: 'LIA — Conversational AI Voice Agent',
@@ -429,7 +435,7 @@ export const projects = [
   {
     slug: 'platformz',
     category: 'AI Agents',
-    tag: 'fullstack',
+    tag: 'ai',
     image: 'fs-platformz.jpg',
     alt: 'The Platformz banner reading Command Everything, Blueprint and Build Anything',
     title: 'Platformz — AI Business Blueprinting',
@@ -509,7 +515,7 @@ export const projects = [
   {
     slug: 'hammerai',
     category: 'AI & LLMs',
-    tag: 'fullstack',
+    tag: 'ai',
     image: 'fs-hammerai.jpg',
     alt: 'The HammerAI wordmark and hammer icon on black',
     title: 'HammerAI — Private Character Chat',
@@ -522,7 +528,7 @@ export const projects = [
   {
     slug: 'arkrayusa',
     category: 'WordPress',
-    tag: 'fullstack',
+    tag: 'wordpress',
     image: 'fs-arkrayusa.jpg',
     alt: 'Three GLUCOCARD Shine blood glucose meters with test strips',
     title: 'ARKRAY USA — Diagnostics Product Site',
@@ -535,7 +541,7 @@ export const projects = [
   {
     slug: 'biancasantini',
     category: 'E-commerce',
-    tag: 'fullstack',
+    tag: 'ecommerce',
     image: 'fs-biancasantini.jpg',
     alt: 'A handmade silver and stone earring worn by a model',
     title: 'Bianca Santini — Handmade Jewellery Store',
@@ -548,7 +554,7 @@ export const projects = [
   {
     slug: 'melosacilotto',
     category: 'WordPress',
-    tag: 'fullstack',
+    tag: 'wordpress',
     image: 'fs-melosacilotto.jpg',
     alt: 'A lawyer photographed in profile against a dark background',
     title: 'Melo Sacilotto — Hospital Tax Equivalence',
@@ -561,7 +567,7 @@ export const projects = [
   {
     slug: 'eventoirreplicavel',
     category: 'WordPress',
-    tag: 'fullstack',
+    tag: 'wordpress',
     image: 'fs-eventoirreplicavel.jpg',
     alt: 'The event host photographed seated in low key lighting',
     title: 'Irreplicável — Live Event Landing Page',
@@ -577,7 +583,7 @@ export const projects = [
     // Description written from the practice's indexed pages.
     slug: 'drajulianamattos',
     category: 'WordPress',
-    tag: 'fullstack',
+    tag: 'wordpress',
     image: 'fs-drajulianamattos.jpg',
     alt: 'A name panel reading Dra. Juliana Mattos over the site’s domain',
     title: 'Dra. Juliana Mattos — Orthodontics & Sleep',
@@ -590,7 +596,7 @@ export const projects = [
   {
     slug: 'yurirocha',
     category: 'WordPress',
-    tag: 'fullstack',
+    tag: 'wordpress',
     image: 'fs-yurirocha.jpg',
     alt: 'The Yuri Rocha Advocacia monogram with a figure of Justice',
     title: 'Yuri Rocha Advocacia — Law Firm & Legal Blog',
@@ -603,7 +609,7 @@ export const projects = [
   {
     slug: 'gruporesolucao',
     category: 'WordPress',
-    tag: 'fullstack',
+    tag: 'wordpress',
     image: 'fs-gruporesolucao.jpg',
     alt: 'An engineer working at an industrial electrical distribution panel',
     title: 'Grupo Resolução — Industrial Engineering',
@@ -616,7 +622,7 @@ export const projects = [
   {
     slug: 'nosdapolitica',
     category: 'WordPress',
-    tag: 'fullstack',
+    tag: 'wordpress',
     image: 'fs-nosdapolitica.jpg',
     alt: 'A community meeting in session, residents seated in a circle',
     title: 'Nós da Política — Civic Education Platform',
@@ -629,7 +635,7 @@ export const projects = [
   {
     slug: 'rudderconsultoria',
     category: 'WordPress',
-    tag: 'fullstack',
+    tag: 'wordpress',
     image: 'fs-rudder.jpg',
     alt: 'A ship’s helm rendered as the Rudder Consultoria brand mark',
     title: 'Rudder Consultoria — Financial & Tax Strategy',
@@ -645,7 +651,7 @@ export const projects = [
     // Description written from the store's indexed pages.
     slug: 'conexaotropical',
     category: 'E-commerce',
-    tag: 'fullstack',
+    tag: 'ecommerce',
     image: 'fs-conexaotropical.jpg',
     alt: 'A name panel reading Conexão Tropical over the site’s domain',
     title: 'Conexão Tropical — Brazilian Grocery Store',
