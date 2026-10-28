@@ -196,6 +196,64 @@ export const projects = [
     tech: ['REST APIs', 'Airtable', 'Slack', 'Auth'],
     source: 'AI Developer & Integration Engineer, Thinking Machines Lab',
   },
+
+  /* ----------------------------------------------------------------------
+   * E-COMMERCE — four empty slots, ready for your content.
+   *
+   * Fill in `title`, `description` and `tech` for each. Everything else is
+   * already wired: the images exist in src/assets/projects and the cards
+   * render under the "E-commerce" filter tab.
+   *
+   * `source` is optional — add it (e.g. a client or employer) if the work
+   * was done in a role, or leave it out for standalone projects.
+   *
+   * To swap an image, drop a file into src/assets/projects and point
+   * `image` at its filename, updating `alt` to describe it.
+   * -------------------------------------------------------------------- */
+  {
+    slug: 'ecommerce-1',
+    category: 'E-commerce',
+    tag: 'ecommerce',
+    image: 'ecommerce-1.jpg',
+    alt: 'A payment card beside a laptop showing an online store',
+    title: 'TODO: Project name',
+    description:
+      'TODO: Two or three sentences on what you built, the problem it solved, and the outcome.',
+    tech: ['TODO', 'TODO', 'TODO'],
+  },
+  {
+    slug: 'ecommerce-2',
+    category: 'E-commerce',
+    tag: 'ecommerce',
+    image: 'ecommerce-2.jpg',
+    alt: 'An "Open" sign hanging in a shop window',
+    title: 'TODO: Project name',
+    description:
+      'TODO: Two or three sentences on what you built, the problem it solved, and the outcome.',
+    tech: ['TODO', 'TODO', 'TODO'],
+  },
+  {
+    slug: 'ecommerce-3',
+    category: 'E-commerce',
+    tag: 'ecommerce',
+    image: 'ecommerce-3.jpg',
+    alt: 'Racks of clothing arranged in a retail store',
+    title: 'TODO: Project name',
+    description:
+      'TODO: Two or three sentences on what you built, the problem it solved, and the outcome.',
+    tech: ['TODO', 'TODO', 'TODO'],
+  },
+  {
+    slug: 'ecommerce-4',
+    category: 'E-commerce',
+    tag: 'ecommerce',
+    image: 'ecommerce-4.jpg',
+    alt: 'A shopper carrying paper shopping bags',
+    title: 'TODO: Project name',
+    description:
+      'TODO: Two or three sentences on what you built, the problem it solved, and the outcome.',
+    tech: ['TODO', 'TODO', 'TODO'],
+  },
 ];
 
 /**

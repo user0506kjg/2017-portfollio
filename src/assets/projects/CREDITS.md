@@ -12,6 +12,10 @@ provenance is recorded here so you can verify or replace any of them.
 | `backend-services.webp` | Computer server room | rawpixel | — | CC0 1.0 |
 | `data-pipelines.jpg` | Hard drives     | StockSnap | `2J3PLNMO9M` | CC0 1.0 |
 | `system-integration.jpg` | Technology Network | StockSnap | `PN7RVGLUUD` | CC0 1.0 |
+| `ecommerce-1.jpg` | Ecommerce Shopping | StockSnap | `RZWM4T2UAD` | CC0 1.0 |
+| `ecommerce-2.jpg` | Shop Store | StockSnap | `I93PW8NE0F` | CC0 1.0 |
+| `ecommerce-3.jpg` | Fashion Clothes | StockSnap | `ZN97ZIF3ZU` | CC0 1.0 |
+| `ecommerce-4.jpg` | Window Shopping | StockSnap | `E1WZHWID6J` | CC0 1.0 |
 
 StockSnap originals: `https://cdn.stocksnap.io/img-thumbs/960w/<ID>.jpg`
 
@@ -27,6 +31,9 @@ than needing the caption to explain it:
 - **Backend services** — a data centre aisle of server racks
 - **Data pipelines** — an array of hard disk drives and controller boards
 - **System integration** — a graph of connected nodes
+- **E-commerce 1–4** — card-and-laptop checkout, a shop "Open" sign, retail
+  clothing racks, and a shopper with bags. These sit on placeholder project
+  slots; swap any of them when the real project content lands.
 
 An earlier set leaned on abstract imagery (light streaks for data pipelines,
 geometric circuitry for agents). Those read as decoration rather than subject
