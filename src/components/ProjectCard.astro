@@ -33,6 +33,13 @@ interface Props {
     source?: string;
     /** Optional: live URL. When present the source line becomes a link. */
     href?: string;
+    /**
+     * How the image fills its panel. 'cover' (the default) crops a landscape
+     * source into a fixed short band. 'natural' gives the panel the image's
+     * own aspect ratio at full card width, so a tall phone screenshot is shown
+     * edge to edge and uncropped — at the cost of a much taller card.
+     */
+    media?: 'cover' | 'natural';
   };
   delay?: 100 | 200 | 300 | 400 | 500 | 600;
   filterable?: boolean;
@@ -40,6 +47,7 @@ interface Props {
 
 const { project, delay, filterable = false } = Astro.props;
 const img = imageFor(project.image);
+const natural = project.media === 'natural';
 ---
 
 <Reveal
@@ -59,13 +67,21 @@ const img = imageFor(project.image);
   <article class="card overflow-hidden flex flex-col">
     <!-- Photo panel. Sources vary in palette, so a cyan duotone unifies them
          with the rest of the site; hover eases the tint off. -->
-    <div class="relative h-48 overflow-hidden border-b border-cyber-blue/20">
+    <div
+      class:list={[
+        'relative overflow-hidden border-b border-cyber-blue/20',
+        natural ? '' : 'h-48',
+      ]}
+    >
       <Image
         src={img}
         alt={project.alt}
-        widths={[400, 800]}
+        widths={natural ? [400, 800, 1080] : [400, 800]}
         sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
-        class="w-full h-full object-cover grayscale-[0.7] contrast-105 brightness-95 transition-transform duration-500 group-hover:scale-110"
+        class:list={[
+          'w-full grayscale-[0.7] contrast-105 brightness-95 transition-transform duration-500 group-hover:scale-110',
+          natural ? 'h-auto object-contain' : 'h-full object-cover',
+        ]}
         loading="lazy"
         decoding="async"
       />
@@ -74,8 +90,13 @@ const img = imageFor(project.image);
         aria-hidden="true"
       >
       </div>
+      {/* On a tall natural panel the gradient is pinned to the bottom edge so
+          it blends into the text block without veiling the whole screenshot. */}
       <div
-        class="absolute inset-0 bg-gradient-to-t from-cyber-dark/90 via-cyber-dark/10 to-transparent pointer-events-none"
+        class:list={[
+          'absolute bg-gradient-to-t from-cyber-dark/90 via-cyber-dark/10 to-transparent pointer-events-none',
+          natural ? 'inset-x-0 bottom-0 h-28' : 'inset-0',
+        ]}
         aria-hidden="true"
       >
       </div>

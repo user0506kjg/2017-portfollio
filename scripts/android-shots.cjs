@@ -1,9 +1,10 @@
-// Portrait phone screenshots in a 2:1 card: show the screenshot whole, at full
-// card height, over a blurred and darkened copy of itself so the frame fills.
+// Android cards show the Play Store screenshot at the card full width,
+// uncropped and at its own aspect ratio, so the asset is simply the screenshot
+// itself. No letterbox panel and no blurred backdrop: the image IS the panel.
 const sharp = require('C:/Users/Administrator/Documents/uk-portfollio/node_modules/sharp');
 const path = require('path');
 const SRC = path.join(__dirname, 'android', 'all');
-const W = 1200, H = 630;
+const OUT = 'C:/Users/Administrator/Documents/uk-portfollio/src/assets/projects';
 
 const JOBS = [
   ['easy3p-2.png', 'and-easy3p.jpg'],
@@ -12,27 +13,16 @@ const JOBS = [
   ['jaumocasual-1.png', 'and-csl.jpg'],
 ];
 
-async function build(src, dst, outDir, inset) {
-  const file = path.join(SRC, src);
-  const bg = await sharp(file)
-    .resize(W, H, { fit: 'cover', position: 'centre' })
-    .blur(28)
-    .modulate({ brightness: 0.42, saturation: 0.55 })
-    .toBuffer();
-  const fgH = H - inset * 2;
-  const fg = await sharp(file).resize({ height: fgH, fit: 'inside' }).png().toBuffer();
-  const info = await sharp(bg)
-    .composite([{ input: fg, gravity: 'centre' }])
-    .jpeg({ quality: 88, mozjpeg: true })
-    .toFile(path.join(outDir, dst));
-  return info;
-}
-
 (async () => {
-  const outDir = process.argv[2];
-  const inset = Number(process.argv[3] || 18);
   for (const [src, dst] of JOBS) {
-    const i = await build(src, dst, outDir, inset);
-    console.log(String(i.size).padStart(7), dst, '<-', src);
+    const m = await sharp(path.join(SRC, src)).metadata();
+    const info = await sharp(path.join(SRC, src))
+      .jpeg({ quality: 88, mozjpeg: true })
+      .toFile(path.join(OUT, dst));
+    const ratio = (m.height / m.width).toFixed(3);
+    console.log(
+      String(info.size).padStart(7), dst.padEnd(16), '<-', src.padEnd(20),
+      m.width + 'x' + m.height, '(h/w ' + ratio + ')'
+    );
   }
 })();

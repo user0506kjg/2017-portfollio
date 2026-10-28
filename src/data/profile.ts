@@ -745,16 +745,18 @@ export const projects = [
    * so nothing claims a framework — only capabilities the listing states
    * outright, such as Wild naming AWS Rekognition Face Liveness.
    *
-   * Images are the Play Store screenshots, chosen by the site owner. Each is
-   * a 1080x2337 portrait going into a 2:1 card, so rather than crop away most
-   * of it, the screenshot is shown whole at full card height over a blurred,
-   * darkened copy of itself that fills the frame. See CREDITS.md.
+   * Images are the Play Store screenshots, chosen by the site owner, shown at
+   * the card's full width, uncropped and at their own aspect ratio. That is
+   * what `media: 'natural'` does, and because these are roughly 1:2.16 phone
+   * screenshots it makes these four cards much taller than the rest. Dropping
+   * the flag returns them to the standard short panel. See CREDITS.md.
    * -------------------------------------------------------------------- */
   {
     slug: 'easy3p',
     category: 'Android',
     tag: 'android',
     image: 'and-easy3p.jpg',
+    media: 'natural' as const,
     alt: 'An Easy3P store screenshot showing a joint couple profile',
     title: 'Easy3P — Couples & Singles Dating App',
     description:
@@ -768,6 +770,7 @@ export const projects = [
     category: 'Android',
     tag: 'android',
     image: 'and-zynq.jpg',
+    media: 'natural' as const,
     alt: 'The Zynq discovery screen showing a profile card with like and pass controls',
     title: 'Zynq — Modern Dating App',
     description:
@@ -781,6 +784,7 @@ export const projects = [
     category: 'Android',
     tag: 'android',
     image: 'and-wild.jpg',
+    media: 'natural' as const,
     alt: 'A Wild store graphic headed “Casual Fun”',
     title: 'Wild — Verified Singles Dating App',
     description:
@@ -794,6 +798,7 @@ export const projects = [
     category: 'Android',
     tag: 'android',
     image: 'and-csl.jpg',
+    media: 'natural' as const,
     alt: 'A CSL store graphic headed “Casual & Fun. For Everyone.” noting 50M downloads',
     title: 'CSL — Casual Dating App by Joyride',
     description:
