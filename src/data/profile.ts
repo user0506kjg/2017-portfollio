@@ -198,11 +198,23 @@ export const projects = [
   },
 ];
 
+/**
+ * Filter tabs on /projects. A tab matches projects whose `tag` equals its `key`.
+ *
+ * NOTE: ecommerce, wordpress, android and fullstack currently match no entries
+ * in `projects` below — nothing in the resume covers that work. The tabs render
+ * and are clickable; until projects carry those tags they show an empty state.
+ * To populate one, add a project with the matching `tag`.
+ */
 export const projectFilters = [
   { key: 'all', label: 'All' },
   { key: 'ai', label: 'AI & LLMs' },
   { key: 'backend', label: 'Backend' },
   { key: 'data', label: 'Data' },
+  { key: 'ecommerce', label: 'E-commerce' },
+  { key: 'wordpress', label: 'WordPress' },
+  { key: 'android', label: 'Android' },
+  { key: 'fullstack', label: 'Full-stack' },
 ];
 
 export const experience = [

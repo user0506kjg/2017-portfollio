@@ -6,6 +6,15 @@ import Reveal from '../components/Reveal.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CyberButton from '../components/CyberButton.astro';
 import { profile, projectFilters, projects } from '../data/profile';
+
+/**
+ * Filters with no matching project yet. Rather than let those tabs render an
+ * empty grid as though something broke, each gets an explicit empty state.
+ * This list is computed at build time, so it empties itself as soon as a
+ * project carries the matching tag.
+ */
+const usedTags = new Set(projects.map((p) => p.tag));
+const emptyFilters = projectFilters.filter((f) => f.key !== 'all' && !usedTags.has(f.key));
 ---
 
 <MainLayout
@@ -53,6 +62,27 @@ import { profile, projectFilters, projects } from '../data/profile';
             ))
           }
         </div>
+
+        {/* Shown only for categories that have no project yet. */}
+        {
+          emptyFilters.map((f) => (
+            <div
+              x-show={`activeTab === '${f.key}'`}
+              x-transition.opacity.duration.300ms
+              class="text-center py-20"
+              style="display: none;"
+            >
+              <div class="w-14 h-14 mx-auto rounded-full bg-cyber-blue/10 border border-cyber-blue/30 flex items-center justify-center mb-5">
+                <i class="fas fa-folder-open text-cyber-blue text-xl" aria-hidden="true" />
+              </div>
+              <p class="text-cyber-blue font-future text-lg mb-2">Nothing here yet</p>
+              <p class="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
+                No {f.label} work is published on this site yet. Check back, or take a look at
+                the other categories.
+              </p>
+            </div>
+          ))
+        }
       </div>
 
     </div>
