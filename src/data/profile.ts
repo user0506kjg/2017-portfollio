@@ -222,13 +222,11 @@ export const projects = [
     href: 'https://theayurved.in/',
   },
   {
-    // Supplied under both E-commerce and Full-stack, and it genuinely is both:
-    // a storefront and a two-sided platform. `tags` puts it under each tab
-    // without duplicating the card.
+    // Also supplied in the Full-stack list, but it belongs here: every project
+    // sits under exactly one filter, and the storefront is the better fit.
     slug: 'onlymassage',
     category: 'E-commerce',
     tag: 'ecommerce',
-    tags: ['ecommerce', 'fullstack'],
     image: 'onlymassage.jpg',
     alt: 'A massage therapist treating a client, under the Onlymassage logo',
     title: 'Onlymassage — Wellness Booking Marketplace',
@@ -701,10 +699,11 @@ export const projects = [
 /**
  * Filter tabs on /projects. A tab matches projects whose `tag` equals its `key`.
  *
- * NOTE: ecommerce, wordpress, android and fullstack currently match no entries
- * in `projects` below — nothing in the resume covers that work. The tabs render
- * and are clickable; until projects carry those tags they show an empty state.
- * To populate one, add a project with the matching `tag`.
+ * Every project carries exactly one `tag`, so it appears under exactly one tab.
+ * If a project would fit two, pick the better fit rather than listing it twice.
+ *
+ * NOTE: `android` currently matches no entries, so that tab renders an empty
+ * state. To populate it, add a project with the matching `tag`.
  */
 export const projectFilters = [
   { key: 'all', label: 'All' },
