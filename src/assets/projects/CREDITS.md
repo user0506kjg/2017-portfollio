@@ -96,14 +96,16 @@ trademarked.
 
 ### How they are fitted
 
-These are 1080×2337 portrait screenshots going into a card whose image area is
-roughly 2:1. A cover crop would have thrown away most of each one, including
-the captions, so instead the screenshot is scaled to the full card height and
-centred over a blurred, darkened copy of itself. The whole screenshot stays
-visible and the frame still fills. `scratchpad/android-shots.cjs` holds the
-recipe; the inset is the only parameter worth tuning.
+The raw screenshots are about 1080×2337, or 1:2.16. Shown at the card's full
+width at that ratio they made the Android cards roughly twice the height of
+every other card, so each is cropped to a **square** window the full width of
+the screenshot, positioned to keep its caption and main subject. The panel
+takes the asset's ratio (`media: 'natural'` in `profile.ts`), so the crop in
+`scripts/android-shots.cjs` is what sets the card height — `SIDE` and the
+per-image `topFrac` are the two dials.
 
-An earlier version of these four cards used the 512×512 app icons instead.
+Two earlier versions of these cards: the 512×512 app icons, and the full
+uncropped screenshot over a blurred copy of itself.
 
 
 ### The two generated panels

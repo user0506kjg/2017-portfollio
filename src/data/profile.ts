@@ -746,10 +746,13 @@ export const projects = [
    * outright, such as Wild naming AWS Rekognition Face Liveness.
    *
    * Images are the Play Store screenshots, chosen by the site owner, shown at
-   * the card's full width, uncropped and at their own aspect ratio. That is
-   * what `media: 'natural'` does, and because these are roughly 1:2.16 phone
-   * screenshots it makes these four cards much taller than the rest. Dropping
-   * the flag returns them to the standard short panel. See CREDITS.md.
+   * the card's full width. `media: 'natural'` gives the panel whatever ratio
+   * the asset has, so the panel shape is set by the crop in
+   * scripts/android-shots.cjs — currently square. The raw screenshots are
+   * 1:2.16, which at full width made these cards roughly twice the height of
+   * every other one, so they are cropped to a square window positioned to keep
+   * each caption and subject. Change SIDE/topFrac there to retune, or drop the
+   * flag to return to the standard short panel. See CREDITS.md.
    * -------------------------------------------------------------------- */
   {
     slug: 'easy3p',
