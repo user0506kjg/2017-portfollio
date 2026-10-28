@@ -701,6 +701,38 @@ export const projects = [
     href: 'https://contabilissimo.com.br',
   },
 
+  {
+    // NOTE: the public marketing site runs WordPress + Elementor Pro behind
+    // Cloudflare, but the card represents the platform rather than the
+    // brochure, so the badge says SaaS Platform and it sits under Full-stack.
+    // Switch `category` to 'WordPress' and `tag` to 'wordpress' if you would
+    // rather this card stood for the site itself.
+    slug: 'interakt',
+    category: 'SaaS Platform',
+    tag: 'fullstack',
+    image: 'fs-interakt.jpg',
+    alt: 'The Interakt hero showing a WhatsApp storefront conversation on a phone',
+    title: 'Interakt — WhatsApp Business Platform',
+    description:
+      'Customer engagement platform used by 100,000+ businesses, built on the WhatsApp Business API and extending to Instagram, RCS and voice. Bundles a no-code chatbot builder, a WhatsApp-first sales CRM, a unified team inbox and campaign tooling — and when a WhatsApp message fails to deliver it falls back to RCS rather than losing the customer.',
+    tech: ['WhatsApp Business API', 'RCS', 'Chatbot Builder', 'WordPress'],
+    source: 'interakt.shop',
+    href: 'https://www.interakt.shop/',
+  },
+  {
+    slug: 'aleyaai',
+    category: 'Agency',
+    tag: 'fullstack',
+    image: 'fs-aleyaai.jpg',
+    alt: 'The AleyaAI brand banner reading “Your AI-first partner”',
+    title: 'AleyaAI — AI Development & Automation Agency',
+    description:
+      'Agency building AI agents, chatbots, voice AI and WhatsApp automations for clients across the US, Gulf and Pakistan, organised as four practices covering strategy, design, build and growth. Sells on fixed scope and a two-to-four week launch, with human handover designed in and builds held to HIPAA and GDPR.',
+    tech: ['Next.js', 'Vercel', 'n8n', 'LangChain'],
+    source: 'aleyaai.com',
+    href: 'https://www.aleyaai.com/',
+  },
+
   /* ----------------------------------------------------------------------
    * ANDROID APPS
    *

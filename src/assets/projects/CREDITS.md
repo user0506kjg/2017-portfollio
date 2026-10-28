@@ -78,6 +78,8 @@ as the tables above. The two exceptions are marked and explained below.
 | `fs-vetdomus.jpg` | vetdomus.com.br | The hospital building and signage (`og-home.jpg`) |
 | `fs-costalaw.jpg` | costalaw.com.br | The founder portrait (`images/og/og-image.jpg`) |
 | `fs-contabilissimo.jpg` | contabilissimo.com.br | The hero of their own `og:image`, cropped to the top |
+| `fs-interakt.jpg` | interakt.shop | The homepage hero (`2023/04/Home.png`) |
+| `fs-aleyaai.jpg` | aleyaai.com | The brand banner from their dynamic `/og` endpoint |
 
 ## `and-*.jpg` — Google Play icons, NOT CC0
 
