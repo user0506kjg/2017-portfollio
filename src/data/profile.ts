@@ -198,61 +198,66 @@ export const projects = [
   },
 
   /* ----------------------------------------------------------------------
-   * E-COMMERCE — four empty slots, ready for your content.
+   * CLIENT WORK
    *
-   * Fill in `title`, `description` and `tech` for each. Everything else is
-   * already wired: the images exist in src/assets/projects and the cards
-   * render under the "E-commerce" filter tab.
+   * Titles, descriptions and tech stacks below were written from the live
+   * sites: page content for what each product does, and response headers,
+   * meta tags and asset paths for the stack. Nothing is inferred from the
+   * resume. Verify anything you'd rather state differently.
    *
-   * `source` is optional — add it (e.g. a client or employer) if the work
-   * was done in a role, or leave it out for standalone projects.
-   *
-   * To swap an image, drop a file into src/assets/projects and point
-   * `image` at its filename, updating `alt` to describe it.
+   * Images are each site's own brand asset (see CREDITS.md) — these are not
+   * stock photos and are not CC0.
    * -------------------------------------------------------------------- */
   {
-    slug: 'ecommerce-1',
+    slug: 'theayurved',
     category: 'E-commerce',
     tag: 'ecommerce',
-    image: 'ecommerce-1.jpg',
-    alt: 'A payment card beside a laptop showing an online store',
-    title: 'TODO: Project name',
+    image: 'theayurved.jpg',
+    alt: 'A person meditating in dense green forest at sunrise',
+    title: 'The Ayurved — Ayurvedic Products Store',
     description:
-      'TODO: Two or three sentences on what you built, the problem it solved, and the outcome.',
-    tech: ['TODO', 'TODO', 'TODO'],
+      'Online storefront for a W-GMP and ISO certified Ayurvedic manufacturer in Haridwar, selling herbal supplements such as Hepato Care, Triphala and Ojas alongside Panchakarma therapy and consultation bookings, with shipping, payment and returns policies and RuPay checkout.',
+    tech: ['WordPress', 'WooCommerce', 'Elementor', 'PHP 8.3'],
+    source: 'theayurved.in',
   },
   {
-    slug: 'ecommerce-2',
+    slug: 'onlymassage',
     category: 'E-commerce',
     tag: 'ecommerce',
-    image: 'ecommerce-2.jpg',
-    alt: 'An "Open" sign hanging in a shop window',
-    title: 'TODO: Project name',
+    image: 'onlymassage.jpg',
+    alt: 'A massage therapist treating a client, under the Onlymassage logo',
+    title: 'Onlymassage — Wellness Booking Marketplace',
     description:
-      'TODO: Two or three sentences on what you built, the problem it solved, and the outcome.',
-    tech: ['TODO', 'TODO', 'TODO'],
+      'Two-sided marketplace for booking massage, physiotherapy and spa treatments. Customers search by service and date across eight treatment categories; practitioners onboard through a separate professional portal. Multi-language, with accounts for both sides of the market.',
+    tech: ['Next.js', 'React', 'Node.js', 'Nginx'],
+    source: 'onlymassage.io',
   },
   {
-    slug: 'ecommerce-3',
+    slug: 'secretspa',
     category: 'E-commerce',
     tag: 'ecommerce',
-    image: 'ecommerce-3.jpg',
-    alt: 'Racks of clothing arranged in a retail store',
-    title: 'TODO: Project name',
+    image: 'secretspa.jpg',
+    alt: 'Manicured hands at a laptop beside a beauty portrait, in Secret Spa branding',
+    title: 'Secret Spa — At-Home Beauty Booking',
     description:
-      'TODO: Two or three sentences on what you built, the problem it solved, and the outcome.',
-    tech: ['TODO', 'TODO', 'TODO'],
+      "London's at-home beauty and wellness booking platform. Customers book DBS-checked, trade-tested therapists for hair, nails, massage, facials, waxing, IV drips and aesthetics between 6am and 10pm, with therapist ratings, live tracking, loyalty points and gift cards.",
+    tech: ['Astro', 'Vercel', 'Vercel Blob', 'Wistia'],
+    source: 'secretspa.co.uk',
   },
   {
-    slug: 'ecommerce-4',
+    // NOTE: a game-discovery PWA rather than a storefront — nothing is sold
+    // through it. Grouped under E-commerce as supplied; change `tag` to
+    // 'fullstack' if you'd rather it sat elsewhere.
+    slug: 'dogsushi',
     category: 'E-commerce',
     tag: 'ecommerce',
-    image: 'ecommerce-4.jpg',
-    alt: 'A shopper carrying paper shopping bags',
-    title: 'TODO: Project name',
+    image: 'dogsushi.jpg',
+    alt: 'The DogSushi logo, a shiba inu styled as a sushi roll',
+    title: 'DogSushi — Steam Game Discovery',
     description:
-      'TODO: Two or three sentences on what you built, the problem it solved, and the outcome.',
-    tech: ['TODO', 'TODO', 'TODO'],
+      'Installable progressive web app for finding PC games, surfacing Steam ratings, reviews and personalised recommendations. Built as a client-rendered single-page app with offline-capable install and a dark-first interface.',
+    tech: ['React', 'Vite', 'PWA', 'Vercel'],
+    source: 'dogsushi.app',
   },
 ];
 
