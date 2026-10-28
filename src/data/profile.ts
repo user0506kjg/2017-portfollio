@@ -263,6 +263,128 @@ export const projects = [
     source: 'dogsushi.app',
     href: 'https://dogsushi.app/',
   },
+
+  /* ----------------------------------------------------------------------
+   * WORDPRESS & CMS SITES
+   *
+   * Stacks below were read off each live site (generator meta tags, theme
+   * paths, response headers), not assumed. Five of the eight run WordPress.
+   * Three do not, and their chips say what they actually run on:
+   *
+   *   bertolla.com    static HTML + jQuery on Apache - no WordPress
+   *   gulfmedtech.com redirects to klensvision.com, built in Webflow
+   *   hivcarecascade  a static JSON-driven app, not a CMS
+   *
+   * They are grouped here as supplied. Change `tag` on any of them if you'd
+   * rather they sat under a different filter.
+   * -------------------------------------------------------------------- */
+  {
+    slug: 'vibrantpharma',
+    category: 'WordPress',
+    tag: 'wordpress',
+    image: 'wp-vibrantpharma.jpg',
+    alt: 'Vibrant Pharma project card',
+    title: 'Vibrant Pharma — Chemistry CRO Catalogue',
+    description:
+      'Site and product catalogue for a Canadian contract research organisation in Brantford, Ontario, offering custom synthesis, medicinal and process chemistry. Visitors search catalogue compounds by name, category, catalogue number, CAS or MDL number and order through a WooCommerce cart.',
+    tech: ['WordPress', 'WooCommerce', 'Elementor', 'PHP 8.1'],
+    source: 'vibrantpharma.com',
+    href: 'https://vibrantpharma.com/',
+  },
+  {
+    slug: 'goprogarage',
+    category: 'WordPress',
+    tag: 'wordpress',
+    image: 'wp-goprogarage.jpg',
+    alt: 'Go Pro Garage Door Service project card',
+    title: 'Go Pro Garage Door — Florida Service Site',
+    description:
+      'Lead-generation site for a Florida garage door repair and installation company, built to turn local search traffic into phone calls. Service pages, a project gallery and call-to-action blocks throughout, with Google Site Kit wired in for search and analytics reporting.',
+    tech: ['WordPress', 'Elementor', 'OceanWP', 'PHP 8.2'],
+    source: 'goprogaragedoorservice.com',
+    href: 'https://goprogaragedoorservice.com',
+  },
+  {
+    slug: 'urogyn',
+    category: 'WordPress',
+    tag: 'wordpress',
+    image: 'wp-urogyn.jpg',
+    alt: 'Urogyn project card',
+    title: 'Urogyn — Stockholm Specialist Clinic',
+    description:
+      'Swedish-language site for one of Stockholm’s leading urology, gynaecology and urotherapy practices. Presents treatment areas and clinician profiles, and routes patients to the right specialist, built on a lightweight Hello Elementor base for speed.',
+    tech: ['WordPress', 'Elementor', 'Hello Elementor', 'Nginx'],
+    source: 'urogyn.se',
+    href: 'https://urogyn.se',
+  },
+  {
+    slug: 'pulsesante',
+    category: 'WordPress',
+    tag: 'wordpress',
+    image: 'wp-pulsesante.jpg',
+    alt: 'Pulse Sante project card',
+    title: 'Pulse Santé — Healthcare SaaS Marketing Site',
+    description:
+      'French marketing site for an all-in-one management platform (PSDM) used by home healthcare providers and medical equipment suppliers. Product and feature pages lead to demo requests, on a bespoke theme rather than a page builder.',
+    tech: ['WordPress', 'Custom Theme', 'Apache', 'PHP 8.3'],
+    source: 'pulse-sante.fr',
+    href: 'https://pulse-sante.fr',
+  },
+  {
+    slug: 'aesthetika',
+    category: 'WordPress',
+    tag: 'wordpress',
+    image: 'wp-aesthetika.jpg',
+    alt: 'Aesthetika Dental Studio project card',
+    title: 'Aesthetika Dental Studio — Private Dental Practice',
+    description:
+      'Site for a private dental practice in Kingston upon Thames covering check-ups, hygiene, Invisalign and implants. Treatment pages carry social proof from 250+ Google reviews, with WP Rocket handling caching and asset optimisation on a media-heavy build.',
+    tech: ['WordPress', 'Avada', 'WP Rocket', 'Nginx'],
+    source: 'aesthetikadentalstudio.co.uk',
+    href: 'https://aesthetikadentalstudio.co.uk',
+  },
+  {
+    // Static HTML + jQuery on Apache — no CMS.
+    slug: 'bertolla',
+    category: 'Static Site',
+    tag: 'wordpress',
+    image: 'wp-bertolla.jpg',
+    alt: 'Ivan Bertolla project card',
+    title: 'Ivan Bertolla — Composer Portfolio',
+    description:
+      'Official site for an Australian composer, guitarist and producer whose production music scores major events. A lean, hand-built presence showcasing the catalogue and credits, with no CMS behind it.',
+    tech: ['HTML', 'CSS', 'jQuery', 'Apache'],
+    source: 'bertolla.com',
+    href: 'https://bertolla.com/',
+  },
+  {
+    // gulfmedtech.com redirects to klensvision.com; built in Webflow.
+    slug: 'klens',
+    category: 'Webflow',
+    tag: 'wordpress',
+    image: 'wp-klens.jpg',
+    alt: 'Klens project card',
+    title: 'Klens — Surgical Device Launch Site',
+    description:
+      'Product site for a single-use device, co-developed with Mayo Clinic, that cleans a laparoscope lens without withdrawing it from the patient. Frames the clinical problem with cited evidence and converts surgeons and health systems into enquiries.',
+    tech: ['Webflow', 'Cloudflare', 'Responsive', 'CMS'],
+    source: 'gulfmedtech.com',
+    href: 'https://gulfmedtech.com',
+  },
+  {
+    // Static JSON-driven research app, not a CMS.
+    slug: 'cascade',
+    category: 'Web App',
+    tag: 'wordpress',
+    image: 'wp-cascade.jpg',
+    alt: 'CASCADE HIV Care Cascade Database project card',
+    title: 'CASCADE — HIV Care Cascade Database',
+    description:
+      'Research database from McMaster University holding 349 clinical trials and 74,375 participants from 1995 to 2023. Trials are filterable by income level, population, care setting and intervention type, with interactive trend charts and CSV or JSON export.',
+    tech: ['JavaScript', 'JSON API', 'Data Viz', 'CSV Export'],
+    source: 'hivcarecascade.com',
+    href: 'https://hivcarecascade.com',
+  },
 ];
 
 /**

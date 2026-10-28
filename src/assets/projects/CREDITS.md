@@ -31,6 +31,21 @@ portfolio practice, but it is not a public-domain licence. If any client objects
 or if a working relationship ends, replace the image. Keep in mind the logos and
 photography may also be trademarked.
 
+## Generated panels — `wp-*.jpg`
+
+The eight `wp-*.jpg` files are **generated**, not photographed or taken from the
+client sites: a dark gradient, a faint grid and the site name and domain set in
+the portfolio's own palette.
+
+They exist because those eight sites publish no usable shared preview image —
+only logos, partner badges or plugin assets — so photo cards would have looked
+inconsistent beside each other. Generating them also sidesteps any trademark
+question around reusing client logos.
+
+To replace one with a real screenshot, drop a 1200×630 image into this folder
+and point the project's `image` field at it. The generator lives in the commit
+that added them if you want to regenerate the set.
+
 StockSnap originals: `https://cdn.stocksnap.io/img-thumbs/960w/<ID>.jpg`
 
 ## Why these
