@@ -700,6 +700,75 @@ export const projects = [
     source: 'contabilissimo.com.br',
     href: 'https://contabilissimo.com.br',
   },
+
+  /* ----------------------------------------------------------------------
+   * ANDROID APPS
+   *
+   * Written from each Google Play listing: the long description for what the
+   * app does, and the embedded JSON-LD for developer, rating and rating
+   * count. Star ratings were current on 28/10/2026.
+   *
+   * The `tech` chips here are feature-level rather than framework-level. A
+   * store listing does not reveal whether an app is Kotlin, Java or Flutter,
+   * so nothing claims a framework — only capabilities the listing states
+   * outright, such as Wild naming AWS Rekognition Face Liveness.
+   *
+   * Images are each app's official Play Store icon, centred on the site's
+   * panel colour. The screenshots were reviewed and not used: they are mostly
+   * stock couples photography, which says nothing about the engineering.
+   * -------------------------------------------------------------------- */
+  {
+    slug: 'easy3p',
+    category: 'Android',
+    tag: 'android',
+    image: 'and-easy3p.jpg',
+    alt: 'The Easy3P app icon',
+    title: 'Easy3P — Couples & Singles Dating App',
+    description:
+      'Dating app that treats a couple as a single account, so two people can present and match from one profile. Swipe matching opens chat on mutual interest, alongside like and profile-visit analytics, member-created private events, and a VIP tier unlocking instant chat and recovery of passed profiles. Rated 4.1 across 5,300+ reviews.',
+    tech: ['Android', 'Play Billing', 'Realtime Chat', 'Content Filtering'],
+    source: 'Google Play',
+    href: 'https://play.google.com/store/apps/details?id=com.mobidev.easy3p',
+  },
+  {
+    slug: 'zynq',
+    category: 'Android',
+    tag: 'android',
+    image: 'and-zynq.jpg',
+    alt: 'The Zynq app icon',
+    title: 'Zynq — Modern Dating App',
+    description:
+      'Dating app built around user control over exposure. Location is approximate by design — distance is shown, exact coordinates never are, and the permission can be denied outright. Adds human-reviewed photo verification, blocking that dissolves an existing match, in-app account deletion, and Gold and Platinum tiers on top of a free plan. Carries no advertising.',
+    tech: ['Android', 'Play Billing', 'Realtime Chat', 'Geolocation'],
+    source: 'Google Play',
+    href: 'https://play.google.com/store/apps/details?id=com.ezigboe.zynq',
+  },
+  {
+    slug: 'wild',
+    category: 'Android',
+    tag: 'android',
+    image: 'and-wild.jpg',
+    alt: 'The Wild app icon',
+    title: 'Wild — Verified Singles Dating App',
+    description:
+      'Dating app whose differentiator is proving the person is real: AWS Rekognition Face Liveness verifies each profile, backed by AI scam detection and manual review. Adds intent-based search so long-term and casual searches do not collide, local meetup events, incognito browsing with photos released only to matches, and an SVIP tier for pre-match messaging. Rated 4.1 across 54,000+ reviews.',
+    tech: ['Android', 'AWS Rekognition', 'Face Liveness', 'Play Billing'],
+    source: 'Google Play',
+    href: 'https://play.google.com/store/apps/details?id=com.free.hookup.dating.apps.wild',
+  },
+  {
+    slug: 'csl',
+    category: 'Android',
+    tag: 'android',
+    image: 'and-csl.jpg',
+    alt: 'The CSL app icon',
+    title: 'CSL — Casual Dating App by Joyride',
+    description:
+      'Dating app from Joyride GmbH, the studio behind Jaumo, matching on stated intent rather than open-ended browsing. Privacy is the default rather than a setting: a profile can stay hidden from the user’s own phone contacts and photos stay private until released. Verified profiles and voice messaging throughout. Rated 4.5 across 338,000+ reviews — the most-reviewed app in this set.',
+    tech: ['Android', 'Play Billing', 'Voice Messaging', 'Realtime Chat'],
+    source: 'Google Play',
+    href: 'https://play.google.com/store/apps/details?id=com.jaumo.casual',
+  },
 ];
 
 /**
@@ -708,8 +777,9 @@ export const projects = [
  * Every project carries exactly one `tag`, so it appears under exactly one tab.
  * If a project would fit two, pick the better fit rather than listing it twice.
  *
- * NOTE: `android` currently matches no entries, so that tab renders an empty
- * state. To populate it, add a project with the matching `tag`.
+ * Every tab now matches at least one project, so the empty state in
+ * projects.astro renders for none of them. It stays in place for whenever a
+ * new filter is added ahead of the work that fills it.
  */
 export const projectFilters = [
   { key: 'all', label: 'All' },

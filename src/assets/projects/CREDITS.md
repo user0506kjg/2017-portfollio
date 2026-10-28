@@ -79,6 +79,25 @@ as the tables above. The two exceptions are marked and explained below.
 | `fs-costalaw.jpg` | costalaw.com.br | The founder portrait (`images/og/og-image.jpg`) |
 | `fs-contabilissimo.jpg` | contabilissimo.com.br | The hero of their own `og:image`, cropped to the top |
 
+## `and-*.jpg` — Google Play icons, NOT CC0
+
+Each is the app's own official Play Store icon at 512×512, centred on the
+site's panel colour. They are the developers' brand assets and are very likely
+trademarked.
+
+| File | App | Package |
+|---|---|---|
+| `and-easy3p.jpg` | Easy3P | `com.mobidev.easy3p` |
+| `and-zynq.jpg` | Zynq | `com.ezigboe.zynq` |
+| `and-wild.jpg` | Wild | `com.free.hookup.dating.apps.wild` |
+| `and-csl.jpg` | CSL | `com.jaumo.casual` |
+
+The Play Store screenshots were downloaded and reviewed, then not used. They
+are mostly stock couples photography that illustrates the product category
+rather than the build, and several are too suggestive to sit on a professional
+portfolio. The icons are the brand asset, carry no such problem, and match how
+the other logo-only cards in this folder are handled.
+
 ### The two generated panels
 
 `fs-conexaotropical.jpg` and `fs-drajulianamattos.jpg` are **not** site assets.
