@@ -745,16 +745,17 @@ export const projects = [
    * so nothing claims a framework — only capabilities the listing states
    * outright, such as Wild naming AWS Rekognition Face Liveness.
    *
-   * Images are each app's official Play Store icon, centred on the site's
-   * panel colour. The screenshots were reviewed and not used: they are mostly
-   * stock couples photography, which says nothing about the engineering.
+   * Images are the Play Store screenshots, chosen by the site owner. Each is
+   * a 1080x2337 portrait going into a 2:1 card, so rather than crop away most
+   * of it, the screenshot is shown whole at full card height over a blurred,
+   * darkened copy of itself that fills the frame. See CREDITS.md.
    * -------------------------------------------------------------------- */
   {
     slug: 'easy3p',
     category: 'Android',
     tag: 'android',
     image: 'and-easy3p.jpg',
-    alt: 'The Easy3P app icon',
+    alt: 'An Easy3P store screenshot showing a joint couple profile',
     title: 'Easy3P — Couples & Singles Dating App',
     description:
       'Dating app that treats a couple as a single account, so two people can present and match from one profile. Swipe matching opens chat on mutual interest, alongside like and profile-visit analytics, member-created private events, and a VIP tier unlocking instant chat and recovery of passed profiles. Rated 4.1 across 5,300+ reviews.',
@@ -767,7 +768,7 @@ export const projects = [
     category: 'Android',
     tag: 'android',
     image: 'and-zynq.jpg',
-    alt: 'The Zynq app icon',
+    alt: 'The Zynq discovery screen showing a profile card with like and pass controls',
     title: 'Zynq — Modern Dating App',
     description:
       'Dating app built around user control over exposure. Location is approximate by design — distance is shown, exact coordinates never are, and the permission can be denied outright. Adds human-reviewed photo verification, blocking that dissolves an existing match, in-app account deletion, and Gold and Platinum tiers on top of a free plan. Carries no advertising.',
@@ -780,7 +781,7 @@ export const projects = [
     category: 'Android',
     tag: 'android',
     image: 'and-wild.jpg',
-    alt: 'The Wild app icon',
+    alt: 'A Wild store graphic headed “Casual Fun”',
     title: 'Wild — Verified Singles Dating App',
     description:
       'Dating app whose differentiator is proving the person is real: AWS Rekognition Face Liveness verifies each profile, backed by AI scam detection and manual review. Adds intent-based search so long-term and casual searches do not collide, local meetup events, incognito browsing with photos released only to matches, and an SVIP tier for pre-match messaging. Rated 4.1 across 54,000+ reviews.',
@@ -793,7 +794,7 @@ export const projects = [
     category: 'Android',
     tag: 'android',
     image: 'and-csl.jpg',
-    alt: 'The CSL app icon',
+    alt: 'A CSL store graphic headed “Casual & Fun. For Everyone.” noting 50M downloads',
     title: 'CSL — Casual Dating App by Joyride',
     description:
       'Dating app from Joyride GmbH, the studio behind Jaumo, matching on stated intent rather than open-ended browsing. Privacy is the default rather than a setting: a profile can stay hidden from the user’s own phone contacts and photos stay private until released. Verified profiles and voice messaging throughout. Rated 4.5 across 338,000+ reviews — the most-reviewed app in this set.',

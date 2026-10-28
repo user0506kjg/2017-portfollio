@@ -81,24 +81,30 @@ as the tables above. The two exceptions are marked and explained below.
 | `fs-interakt.jpg` | interakt.shop | The homepage hero (`2023/04/Home.png`) |
 | `fs-aleyaai.jpg` | aleyaai.com | The brand banner from their dynamic `/og` endpoint |
 
-## `and-*.jpg` — Google Play icons, NOT CC0
+## `and-*.jpg` — Google Play screenshots, NOT CC0
 
-Each is the app's own official Play Store icon at 512×512, centred on the
-site's panel colour. They are the developers' brand assets and are very likely
+Each is a store screenshot from the app's own Play listing, chosen by the site
+owner. They are the developers' marketing assets and are very likely
 trademarked.
 
-| File | App | Package |
-|---|---|---|
-| `and-easy3p.jpg` | Easy3P | `com.mobidev.easy3p` |
-| `and-zynq.jpg` | Zynq | `com.ezigboe.zynq` |
-| `and-wild.jpg` | Wild | `com.free.hookup.dating.apps.wild` |
-| `and-csl.jpg` | CSL | `com.jaumo.casual` |
+| File | App | Package | Screenshot |
+|---|---|---|---|
+| `and-easy3p.jpg` | Easy3P | `com.mobidev.easy3p` | "Like and pair with couples or singles" |
+| `and-zynq.jpg` | Zynq | `com.ezigboe.zynq` | The discovery screen with like and pass controls |
+| `and-wild.jpg` | Wild | `com.free.hookup.dating.apps.wild` | "Casual Fun" |
+| `and-csl.jpg` | CSL | `com.jaumo.casual` | "Casual & Fun. For Everyone." |
 
-The Play Store screenshots were downloaded and reviewed, then not used. They
-are mostly stock couples photography that illustrates the product category
-rather than the build, and several are too suggestive to sit on a professional
-portfolio. The icons are the brand asset, carry no such problem, and match how
-the other logo-only cards in this folder are handled.
+### How they are fitted
+
+These are 1080×2337 portrait screenshots going into a card whose image area is
+roughly 2:1. A cover crop would have thrown away most of each one, including
+the captions, so instead the screenshot is scaled to the full card height and
+centred over a blurred, darkened copy of itself. The whole screenshot stays
+visible and the frame still fills. `scratchpad/android-shots.cjs` holds the
+recipe; the inset is the only parameter worth tuning.
+
+An earlier version of these four cards used the 512×512 app icons instead.
+
 
 ### The two generated panels
 
