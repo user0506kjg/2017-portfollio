@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   // Change `site` to your deployed URL before building for production.
-  site: 'https://jp-portfollio.vercel.app',
+  site: 'https://my-portfolio-new-lilac.vercel.app',
   // Hide the floating Astro dev toolbar in the browser.
   devToolbar: { enabled: false },
   vite: {
