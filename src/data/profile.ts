@@ -222,9 +222,13 @@ export const projects = [
     href: 'https://theayurved.in/',
   },
   {
+    // Supplied under both E-commerce and Full-stack, and it genuinely is both:
+    // a storefront and a two-sided platform. `tags` puts it under each tab
+    // without duplicating the card.
     slug: 'onlymassage',
     category: 'E-commerce',
     tag: 'ecommerce',
+    tags: ['ecommerce', 'fullstack'],
     image: 'onlymassage.jpg',
     alt: 'A massage therapist treating a client, under the Onlymassage logo',
     title: 'Onlymassage — Wellness Booking Marketplace',
@@ -384,6 +388,313 @@ export const projects = [
     tech: ['JavaScript', 'JSON API', 'Data Viz', 'CSV Export'],
     source: 'hivcarecascade.com',
     href: 'https://hivcarecascade.com',
+  },
+
+  /* ----------------------------------------------------------------------
+   * FULL-STACK BUILDS
+   *
+   * Same method as the sections above: titles and descriptions written from
+   * each live site, stacks read off generator meta tags, asset paths and
+   * response headers. Where a site turned out not to match the label it was
+   * supplied under, the `category` badge says what it actually is.
+   *
+   * Two of these are currently serving an empty response, so no imagery
+   * could be taken from them and their cards carry a name panel instead —
+   * see the notes on each and CREDITS.md.
+   * -------------------------------------------------------------------- */
+  {
+    slug: 'jimeng',
+    category: 'AI Platform',
+    tag: 'fullstack',
+    image: 'fs-jimeng.jpg',
+    alt: 'The Jimeng AI brand mark over a generated portrait',
+    title: 'Jimeng AI — Generative Image & Video Studio',
+    description:
+      'Chinese-language creative platform generating images and video from a prompt or a reference frame. Covers a short-drama studio, a multi-layer canvas with inpainting, outpainting and cutout, first-to-last frame control over motion, and credit-based tiers gating access to each model generation.',
+    tech: ['React', 'SSR', 'Tengine', 'CDN'],
+    source: 'jimeng.jianying.com',
+    href: 'https://jimeng.jianying.com',
+  },
+  {
+    slug: 'lialive',
+    category: 'AI Agents',
+    tag: 'fullstack',
+    image: 'fs-lialive.jpg',
+    alt: 'The LIA wordmark in gradient lettering on black',
+    title: 'LIA — Conversational AI Voice Agent',
+    description:
+      'Voice-first agent handling sales, support, search and booking across web, mobile, WhatsApp, Instagram and in-store. Runs transactions end to end against live availability, negotiates and upsells, switches language mid-conversation, and hands over to a human with full context when it needs to.',
+    tech: ['Next.js', 'React', 'Voice AI', 'Omnichannel'],
+    source: 'lialive.ai',
+    href: 'https://lialive.ai',
+  },
+  {
+    slug: 'platformz',
+    category: 'AI Agents',
+    tag: 'fullstack',
+    image: 'fs-platformz.jpg',
+    alt: 'The Platformz banner reading Command Everything, Blueprint and Build Anything',
+    title: 'Platformz — AI Business Blueprinting',
+    description:
+      'Platbot turns an idea or an operational problem into a costed delivery plan — requirements, scope, homepage concept, topology, timeline and estimated investment — issued as a blueprint PDF. Paths cover marketplaces, retail launches, international sales, AI agents and workflow automation.',
+    tech: ['Next.js', 'React', 'LLM Agents', 'Cloudflare'],
+    source: 'platformz.us',
+    href: 'https://platformz.us/',
+  },
+  {
+    slug: 'moonlitdev',
+    category: 'Web3',
+    tag: 'fullstack',
+    image: 'fs-moonlit.jpg',
+    alt: 'The MoonLit earnings panel showing a yield curve rising to $5.46k',
+    title: 'MoonLit — DeFi Staking & Yield Dashboard',
+    description:
+      'Staking front-end quoting a 19.9% APY, with a wallet-connected dashboard for active stake, daily points and season rewards. Charts historical smart-contract APY, handles deposit and withdrawal, and runs a referral programme on top of the $MOON token incentives.',
+    tech: ['React Router', 'Vite', 'Chart.js', 'Netlify'],
+    source: 'moonlitdev.netlify.app',
+    href: 'https://moonlitdev.netlify.app/',
+  },
+  {
+    slug: 'dialedweb',
+    category: 'Agency',
+    tag: 'fullstack',
+    image: 'fs-dialedweb.jpg',
+    alt: 'A laptop on a plinth showing a Dialedweb client site for a drinks brand',
+    title: 'Dialedweb — Web & Motion Studio',
+    description:
+      'Site for a studio selling premium web and motion work, where the portfolio is the argument: ten client builds play as inline video previews rather than screenshots, backed by named testimonials from the founders who commissioned them.',
+    tech: ['Next.js', 'React', 'Video', 'Vercel'],
+    source: 'dialedweb.com',
+    href: 'https://www.dialedweb.com/',
+  },
+  {
+    slug: 'waraqlabs',
+    category: 'Agency',
+    tag: 'fullstack',
+    image: 'fs-waraqlabs.jpg',
+    alt: 'The Waraq Labs monogram mark',
+    title: 'Waraq Labs — Software Development Agency',
+    description:
+      'Pakistan-based development agency that argues its case against the usual outsourcing failures — slipped deadlines, fragile code, budgets overrun after signing — and answers each with weekly deliverables, CI/CD with real test coverage, and honest upfront estimates.',
+    tech: ['Framer', 'Motion', 'CMS', 'Responsive'],
+    source: 'waraqlabs.com',
+    href: 'https://waraqlabs.com/',
+  },
+  {
+    // Custom bundled frontend on nginx, reading from a WordPress install at
+    // /asm_cp/ — headless rather than a themed WordPress site.
+    slug: 'asmobius',
+    category: 'Headless CMS',
+    tag: 'fullstack',
+    image: 'fs-asmobius.jpg',
+    alt: 'A minimal concrete and glass interior from an Archi Site Mobius project',
+    title: 'Archi Site Mobius — Architecture Portfolio',
+    description:
+      'Bilingual portfolio for a Tokyo architecture practice, presenting residences and villas including Park Mansion Minami Azabu and Sevens Villa Karuizawa. A hand-built bundled frontend renders the work while WordPress sits behind it purely as the editing surface.',
+    tech: ['Headless WordPress', 'JavaScript', 'Nginx', 'Bilingual'],
+    source: 'asmobius.co.jp',
+    href: 'https://asmobius.co.jp/',
+  },
+  {
+    slug: 'lazzaglobal',
+    category: 'Fintech',
+    tag: 'fullstack',
+    image: 'fs-lazzaglobal.jpg',
+    alt: 'The Lazza Global banner with crypto tokens over a dark globe',
+    title: 'Lazza Global — AI Investment Platform',
+    description:
+      'Spanish-language investment platform pairing a fixed-income product quoted at 1% monthly with an AI-driven variable-income algorithm and live trading in crypto, equities and indices. Carries a market browser, portfolio view, side-by-side plan comparison and a back office for withdrawals and reporting.',
+    tech: ['Framer', 'Motion', 'Trading UI', 'Cloudflare'],
+    source: 'lazzaglobal.com',
+    href: 'https://lazzaglobal.com',
+  },
+  {
+    slug: 'hammerai',
+    category: 'AI & LLMs',
+    tag: 'fullstack',
+    image: 'fs-hammerai.jpg',
+    alt: 'The HammerAI wordmark and hammer icon on black',
+    title: 'HammerAI — Private Character Chat',
+    description:
+      'Character chat and roleplay platform whose premise is privacy: models run either on the hosted servers or entirely on the user’s own machine through Ollama in the desktop app, so conversations need never leave it. Adds image generation, story writing, group chat, lorebooks and personas across desktop, iOS and web.',
+    tech: ['Next.js', 'React', 'Ollama', 'Vercel'],
+    source: 'hammerai.com',
+    href: 'https://hammerai.com',
+  },
+  {
+    slug: 'arkrayusa',
+    category: 'WordPress',
+    tag: 'fullstack',
+    image: 'fs-arkrayusa.jpg',
+    alt: 'Three GLUCOCARD Shine blood glucose meters with test strips',
+    title: 'ARKRAY USA — Diagnostics Product Site',
+    description:
+      'US site for a global diabetes-care and clinical-diagnostics manufacturer, carrying the GLUCOCARD meter range, the Assure professional line and ADAMS and AUTION analysers. Supports clinicians with training, manuals, SDS downloads and a product locator, under a region selector spanning four continents.',
+    tech: ['WordPress', 'Elementor Pro', 'WP Engine', 'Cloudflare'],
+    source: 'arkrayusa.com',
+    href: 'https://www.arkrayusa.com',
+  },
+  {
+    slug: 'biancasantini',
+    category: 'E-commerce',
+    tag: 'fullstack',
+    image: 'fs-biancasantini.jpg',
+    alt: 'A handmade silver and stone earring worn by a model',
+    title: 'Bianca Santini — Handmade Jewellery Store',
+    description:
+      'Brazilian storefront for handmade 925 silver jewellery set with natural stones and pearls, each gem credited to the Minas Gerais town it came from. Browsing runs by stone as well as by piece, with free shipping thresholds, interest-free instalments, insured tracked delivery and a one-year guarantee.',
+    tech: ['Shopify', 'Liquid', 'Shopify CDN', 'Cloudflare'],
+    source: 'biancasantini.com.br',
+    href: 'https://biancasantini.com.br',
+  },
+  {
+    slug: 'melosacilotto',
+    category: 'WordPress',
+    tag: 'fullstack',
+    image: 'fs-melosacilotto.jpg',
+    alt: 'A lawyer photographed in profile against a dark background',
+    title: 'Melo Sacilotto — Hospital Tax Equivalence',
+    description:
+      'Campaign site for a Brazilian firm specialising in Equiparação Hospitalar, the 1995 benefit letting qualifying clinics be assessed as hospitals and cut federal tax by up to 70%. Sets out eligibility, the five-stage process from audit to monitoring, and the R$50m+ already recovered for clients.',
+    tech: ['WordPress', 'Elementor', 'ElementsKit', 'PHP 8.2'],
+    source: 'melosacilottoadv.com.br',
+    href: 'https://melosacilottoadv.com.br/equiparacaohospitalar',
+  },
+  {
+    slug: 'eventoirreplicavel',
+    category: 'WordPress',
+    tag: 'fullstack',
+    image: 'fs-eventoirreplicavel.jpg',
+    alt: 'The event host photographed seated in low key lighting',
+    title: 'Irreplicável — Live Event Landing Page',
+    description:
+      'Single-purpose conversion page for a two-hour in-person immersion in Brazil, built around one dated event with check-in times, ticket purchase and card-brand trust marks. Leads on attendee testimonials and a structured promise ending in a 90-day action plan.',
+    tech: ['WordPress', 'Elementor Pro', 'Royal Addons', 'Nginx'],
+    source: 'eventoirreplicaveloficial.com.br',
+    href: 'https://eventoirreplicaveloficial.com.br',
+  },
+  {
+    // The domain currently returns an empty body on every path, so no site
+    // imagery could be taken — this card carries a name panel instead.
+    // Description written from the practice's indexed pages.
+    slug: 'drajulianamattos',
+    category: 'WordPress',
+    tag: 'fullstack',
+    image: 'fs-drajulianamattos.jpg',
+    alt: 'A name panel reading Dra. Juliana Mattos over the site’s domain',
+    title: 'Dra. Juliana Mattos — Orthodontics & Sleep',
+    description:
+      'Site for a Bahia dental practice working across orthodontics, Invisalign and sleep dentistry for snoring and apnoea, with treatment explainers published as an education-led blog to draw patients into consultation bookings.',
+    tech: ['WordPress', 'Nginx', 'SEO Content', 'Responsive'],
+    source: 'drajulianamattos.com',
+    href: 'https://www.drajulianamattos.com/',
+  },
+  {
+    slug: 'yurirocha',
+    category: 'WordPress',
+    tag: 'fullstack',
+    image: 'fs-yurirocha.jpg',
+    alt: 'The Yuri Rocha Advocacia monogram with a figure of Justice',
+    title: 'Yuri Rocha Advocacia — Law Firm & Legal Blog',
+    description:
+      'Site for a law firm in Espírito Santo covering contracts, litigation, mediation and consumer banking claims. A steadily published blog explains rights such as usucapião, military allowances and improperly charged bank fees, turning search traffic into consultations.',
+    tech: ['WordPress', 'Elementor Pro', 'Qi Addons', 'Nginx'],
+    source: 'yurirocha.adv.br',
+    href: 'https://yurirocha.adv.br/',
+  },
+  {
+    slug: 'gruporesolucao',
+    category: 'WordPress',
+    tag: 'fullstack',
+    image: 'fs-gruporesolucao.jpg',
+    alt: 'An engineer working at an industrial electrical distribution panel',
+    title: 'Grupo Resolução — Industrial Engineering',
+    description:
+      'Site for a São Paulo electrical engineering and facilities contractor of twenty years, covering low and medium voltage projects, industrial automation, photovoltaic installations, HVAC and NR-10, AVCB and CLCB compliance reporting. Every service page routes into a quote request.',
+    tech: ['WordPress', 'Elementor', 'MetForm', 'LiteSpeed'],
+    source: 'gruporesolucao.com.br',
+    href: 'https://gruporesolucao.com.br',
+  },
+  {
+    slug: 'nosdapolitica',
+    category: 'WordPress',
+    tag: 'fullstack',
+    image: 'fs-nosdapolitica.jpg',
+    alt: 'A community meeting in session, residents seated in a circle',
+    title: 'Nós da Política — Civic Education Platform',
+    description:
+      'Independent Brazilian publication making public life legible: which tier of government decides what, how participatory budgeting actually works, and why women remain a minority in office despite being a majority at the ballot box. Combines a magazine-style blog with courses and free materials.',
+    tech: ['WordPress', 'Elementor Pro', 'MetForm', 'PHP 8.2'],
+    source: 'nosdapolitica.com.br',
+    href: 'https://nosdapolitica.com.br',
+  },
+  {
+    slug: 'rudderconsultoria',
+    category: 'WordPress',
+    tag: 'fullstack',
+    image: 'fs-rudder.jpg',
+    alt: 'A ship’s helm rendered as the Rudder Consultoria brand mark',
+    title: 'Rudder Consultoria — Financial & Tax Strategy',
+    description:
+      'Site for a Brazilian consultancy working across financial, tax and corporate structuring — cash-flow organisation, debt restructuring, M&A support, tax reviews and succession planning — presented through outcome-led service pages that funnel into a strategic diagnostic booking.',
+    tech: ['WordPress', 'Elementor Pro', 'Contact Form 7', 'Cloudflare'],
+    source: 'rudderconsultoria.com.br',
+    href: 'https://rudderconsultoria.com.br/',
+  },
+  {
+    // The domain currently returns an empty body on every path, so no site
+    // imagery could be taken — this card carries a name panel instead.
+    // Description written from the store's indexed pages.
+    slug: 'conexaotropical',
+    category: 'E-commerce',
+    tag: 'fullstack',
+    image: 'fs-conexaotropical.jpg',
+    alt: 'A name panel reading Conexão Tropical over the site’s domain',
+    title: 'Conexão Tropical — Brazilian Grocery Store',
+    description:
+      'Online store bringing Brazilian groceries and household brands to customers across Switzerland and Liechtenstein, run alongside a physical shop in Geneva with local delivery and prioritised shipping nationwide.',
+    tech: ['PHP 8.1', 'LiteSpeed', 'E-commerce', 'Hostinger'],
+    source: 'conexaotropical.com',
+    href: 'https://conexaotropical.com',
+  },
+  {
+    slug: 'vetdomus',
+    category: 'Web App',
+    tag: 'fullstack',
+    image: 'fs-vetdomus.jpg',
+    alt: 'The Vet Domus hospital building and its street signage',
+    title: 'Vet Domus — 24h Veterinary Hospital',
+    description:
+      'Site for a 24-hour veterinary hospital in Pinheiros, São Paulo holding Cat Friendly Gold certification, which it earns with separate feline waiting, consulting and inpatient areas away from barking. Presents emergency care, surgery, digital imaging, an in-house laboratory, physiotherapy and 15+ specialities.',
+    tech: ['React', 'Vite', 'Radix UI', 'Cloudflare'],
+    source: 'vetdomus.com.br',
+    href: 'https://vetdomus.com.br',
+  },
+  {
+    slug: 'costalaw',
+    category: 'Next.js',
+    tag: 'fullstack',
+    image: 'fs-costalaw.jpg',
+    alt: 'The founder of Costa Law portrayed against a blurred office interior',
+    title: 'Costa Law — Legal Tech Business Firm',
+    description:
+      'Trilingual site for a São Paulo business law firm, built around the DocuSign case study at its centre: eSignature, IAM, Maestro and Navigator replaced a process that had drawn five judicial rejections of digitally signed documents. Also covers M&A due diligence, governance and LGPD compliance.',
+    tech: ['Next.js', 'React', 'i18n', 'Vercel'],
+    source: 'costalaw.com.br',
+    href: 'https://costalaw.com.br',
+  },
+  {
+    slug: 'contabilissimo',
+    category: 'Web App',
+    tag: 'fullstack',
+    image: 'fs-contabilissimo.jpg',
+    alt: 'The Contabilíssimo hero promising fully digital accounting for e-commerce',
+    title: 'Contabilíssimo — E-commerce Accounting SaaS',
+    description:
+      'Fully digital accounting service for Brazilian online sellers, connecting to Mercado Livre, Shopify and Nuvemshop to pull sales through and issue invoices automatically. Adds payroll and eSocial filing, tax planning and a ten-day migration from an existing accountant, behind an account with passkey sign-in.',
+    tech: ['React', 'Vite', 'Supabase', 'Cloudflare'],
+    source: 'contabilissimo.com.br',
+    href: 'https://contabilissimo.com.br',
   },
 ];
 

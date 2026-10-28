@@ -24,6 +24,8 @@ interface Props {
     slug: string;
     category: string;
     tag: string;
+    /** Optional: extra filters this project also belongs under. */
+    tags?: string[];
     image: string;
     alt: string;
     title: string;
@@ -40,6 +42,13 @@ interface Props {
 
 const { project, delay, filterable = false } = Astro.props;
 const img = imageFor(project.image);
+
+// A project normally sits under one filter. `tags` lets one sit under several
+// — Onlymassage is both a storefront and a full-stack build, for instance.
+const filterTags = project.tags?.length ? project.tags : [project.tag];
+const showExpr = `activeTab === 'all' || ${filterTags
+  .map((t) => `activeTab === '${t}'`)
+  .join(' || ')}`;
 ---
 
 <Reveal
@@ -47,7 +56,7 @@ const img = imageFor(project.image);
   class="group relative h-full"
   {...filterable
     ? {
-        'x-show': `activeTab === 'all' || activeTab === '${project.tag}'`,
+        'x-show': showExpr,
         // Must be an empty string, not `true`: a spread boolean renders as
         // ="true", which Alpine parses as a custom transition expression.
         'x-transition.opacity.duration.300ms': '',

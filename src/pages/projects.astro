@@ -13,7 +13,7 @@ import { profile, projectFilters, projects } from '../data/profile';
  * This list is computed at build time, so it empties itself as soon as a
  * project carries the matching tag.
  */
-const usedTags = new Set(projects.map((p) => p.tag));
+const usedTags = new Set(projects.flatMap((p) => ('tags' in p && p.tags?.length ? p.tags : [p.tag])));
 const emptyFilters = projectFilters.filter((f) => f.key !== 'all' && !usedTags.has(f.key));
 ---
 

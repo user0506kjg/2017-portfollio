@@ -51,6 +51,52 @@ trademarked.
 Photographs are cropped to 1200×630. Logos and UI artwork are letterboxed onto a
 dark panel instead, so nothing is cut off.
 
+## `fs-*.jpg` — also client assets, NOT CC0
+
+Twenty of the twenty-two come from the site they represent, under the same terms
+as the tables above. The two exceptions are marked and explained below.
+
+| File | Taken from | What it shows |
+|---|---|---|
+| `fs-jimeng.jpg` | jimeng.jianying.com | The 即梦AI brand mark over a generated portrait (`og-image.webp`) |
+| `fs-lialive.jpg` | lialive.ai | The LIA wordmark (`opengraph-image.png`) |
+| `fs-platformz.jpg` | platformz.ai | The product banner (`assets/brand/og-social-preview.jpg`) |
+| `fs-moonlit.jpg` | moonlitdev.netlify.app | The earnings panel from the dashboard (`assets/img-2-*.png`) |
+| `fs-dialedweb.jpg` | dialedweb.com | A client-site mockup (`mockups/hydroflow.webp`, a video poster frame) |
+| `fs-waraqlabs.jpg` | waraqlabs.com | The Waraq Labs monogram (their `og:image`, an SVG, rasterised) |
+| `fs-asmobius.jpg` | asmobius.co.jp | A project interior (`asm_cp/.../main-1.jpg`) |
+| `fs-lazzaglobal.jpg` | lazzaglobal.com | The brand banner (Framer `og:image`) |
+| `fs-hammerai.jpg` | hammerai.com | The HammerAI wordmark (`og.webp`) |
+| `fs-arkrayusa.jpg` | arkrayusa.com | GLUCOCARD Shine meters (`4-Shine-meters-with-test-strips.png`) |
+| `fs-biancasantini.jpg` | biancasantini.com.br | A product photograph (`cdn/shop/files/Brinco-Berilo_medio_1_*.jpg`) |
+| `fs-melosacilotto.jpg` | melosacilottoadv.com.br | The firm's portrait of its lead lawyer (`DSC_8595-*.jpg`) |
+| `fs-eventoirreplicavel.jpg` | eventoirreplicaveloficial.com.br | The event host (`IMG_2288-*.jpg`) |
+| `fs-yurirocha.jpg` | yurirocha.adv.br | The firm's monogram (`Rapido-4.png` artwork set) |
+| `fs-gruporesolucao.jpg` | gruporesolucao.com.br | An engineer at a distribution panel (`2025/07/1.png`) |
+| `fs-nosdapolitica.jpg` | nosdapolitica.com.br | A community meeting (`reuniao-comunitaria-*.png`) |
+| `fs-rudder.jpg` | rudderconsultoria.com.br | The helm brand mark (`rudder_img_leme.webp`) |
+| `fs-vetdomus.jpg` | vetdomus.com.br | The hospital building and signage (`og-home.jpg`) |
+| `fs-costalaw.jpg` | costalaw.com.br | The founder portrait (`images/og/og-image.jpg`) |
+| `fs-contabilissimo.jpg` | contabilissimo.com.br | The hero of their own `og:image`, cropped to the top |
+
+### The two generated panels
+
+`fs-conexaotropical.jpg` and `fs-drajulianamattos.jpg` are **not** site assets.
+Both domains currently answer every request with an empty body — 0 bytes for
+`conexaotropical.com`, a 3-byte byte-order mark for `drajulianamattos.com` —
+including favicons and logo paths, and web.archive.org is unreachable from this
+machine. There was nothing to take, so each card carries a plain name panel
+generated in the site's own palette.
+
+Replace either one the moment its site is serving again: drop a 1200×630 file
+here and point the project's `image` field at it.
+
+Note while you are there: `drajulianamattos.com/sitemap.xml` still responds, and
+it lists 1,196 `?shop/details/C…` URLs for a dental practice that sells nothing.
+That pattern is characteristic of an SEO spam injection, which together with the
+blank responses suggests the install is broken or compromised rather than simply
+offline. Worth raising with whoever maintains it.
+
 An earlier version of this set used generated typographic panels — site name and
 domain on a grid — because several of these sites publish no Open Graph preview
 image. Those were replaced with real imagery pulled from the sites themselves.
