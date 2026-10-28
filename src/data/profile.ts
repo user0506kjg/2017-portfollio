@@ -1,6 +1,7 @@
 /**
  * Single source of truth for all site content.
- * Everything here is derived from JEAN-LUC_PINAS_Resume.pdf.
+ * Everything here is derived from the source resume PDF, which is gitignored
+ * because this repository is public and the PDF carries contact details.
  *
  * NOTE: No contact information from the resume is included anywhere in this
  * project (no email address, phone number, or LinkedIn URL). Items marked
@@ -8,9 +9,16 @@
  */
 
 export const profile = {
-  name: 'Jean-Luc Pinas',
-  initial: 'J',
-  shortName: 'Jean-Luc',
+  name: 'Ruan Victor Cabral De Lima',
+  initial: 'R',
+  shortName: 'Ruan',
+  /**
+   * The wordmark in the header, footer and about heading is two-tone: `given`
+   * in white, `family` in cyan. Kept here so a rename is one edit rather than
+   * a hunt through three components.
+   */
+  given: 'Ruan Victor',
+  family: 'Cabral De Lima',
   role: 'Senior AI & Python Software Engineer',
   roleFull: 'Senior AI & Python Software Engineer | AI Trainer & LLM Expert',
   tagline: 'AI Architecture, LLM Integration & Intelligent Systems',

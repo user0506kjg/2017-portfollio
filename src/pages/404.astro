@@ -3,9 +3,10 @@ import MainLayout from '../layouts/MainLayout.astro';
 import CyberButton from '../components/CyberButton.astro';
 import Reveal from '../components/Reveal.astro';
 import SectionAmbience from '../components/SectionAmbience.astro';
+import { profile } from '../data/profile';
 ---
 
-<MainLayout title="Page Not Found | Jean-Luc Pinas">
+<MainLayout title={`Page Not Found | ${profile.name}`}>
   <section class="min-h-[80vh] flex items-center relative overflow-hidden pt-24">
     <SectionAmbience />
     <div class="max-w-2xl mx-auto px-6 relative text-center">

@@ -10,7 +10,7 @@ import { education, experience, profile } from '../data/profile';
 
 <MainLayout
   title={`About | ${profile.name}`}
-  description="Background, professional experience, and education of Jean-Luc Pinas, Senior AI & Python Software Engineer."
+  description={`Background, professional experience, and education of ${profile.name}, ${profile.role}.`}
 >
   <!-- ================= PAGE HERO ================= -->
   <section
@@ -28,7 +28,8 @@ import { education, experience, profile } from '../data/profile';
         </Reveal>
         <Reveal delay={100}>
           <h1 class="text-4xl lg:text-6xl font-bold mb-6 font-future leading-[1.1] tracking-tight">
-            Jean-Luc <span class="text-cyber-blue text-shadow-glow">Pinas</span>
+            {profile.given}{' '}
+            <span class="text-cyber-blue text-shadow-glow">{profile.family}</span>
           </h1>
         </Reveal>
         <Reveal delay={200}>

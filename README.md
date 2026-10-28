@@ -1,8 +1,7 @@
-# Jean-Luc Pinas — Portfolio
+# Ruan Victor Cabral De Lima — Portfolio
 
 A personal portfolio built in the visual language of the **Futura AI** template
-(Astro + Tailwind + Alpine, cyan-on-navy cyberpunk), with content derived from
-`JEAN-LUC_PINAS_Resume.pdf`.
+(Astro + Tailwind + Alpine, cyan-on-navy cyberpunk), with content derived from the source resume PDF (gitignored).
 
 ## Stack
 

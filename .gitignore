@@ -8,7 +8,6 @@ dist/
 
 # Source resume — contains personal contact details (email, phone, LinkedIn).
 # Deliberately excluded: this repository is public.
-JEAN-LUC_PINAS_Resume.pdf
 *.pdf
 
 # Vercel CLI link metadata
