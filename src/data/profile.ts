@@ -745,14 +745,19 @@ export const projects = [
    * so nothing claims a framework — only capabilities the listing states
    * outright, such as Wild naming AWS Rekognition Face Liveness.
    *
-   * Images are the Play Store screenshots, chosen by the site owner, shown at
-   * the card's full width. `media: 'natural'` gives the panel whatever ratio
-   * the asset has, so the panel shape is set by the crop in
-   * scripts/android-shots.cjs — currently square. The raw screenshots are
-   * 1:2.16, which at full width made these cards roughly twice the height of
-   * every other one, so they are cropped to a square window positioned to keep
-   * each caption and subject. Change SIDE/topFrac there to retune, or drop the
-   * flag to return to the standard short panel. See CREDITS.md.
+   * Images are the Play Store screenshots, chosen by the site owner. Each is
+   * shown WHOLE and at its own proportions — nothing is cropped and nothing is
+   * stretched.
+   *
+   * A 1:2.16 phone screenshot cannot fill the card's width without making the
+   * card about twice the height of every other one, so the panel is a square
+   * and the screenshot sits inside it at full panel height. The space either
+   * side carries a blurred, darkened copy of the same screenshot, so the panel
+   * reads as one image rather than as empty margin.
+   *
+   * `media: 'natural'` makes the panel take the asset's ratio, so the canvas
+   * in scripts/android-shots.cjs is what sets the card height — raise its H
+   * for a larger screenshot and a taller card. See CREDITS.md.
    * -------------------------------------------------------------------- */
   {
     slug: 'easy3p',

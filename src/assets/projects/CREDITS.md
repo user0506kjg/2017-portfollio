@@ -96,16 +96,24 @@ trademarked.
 
 ### How they are fitted
 
-The raw screenshots are about 1080×2337, or 1:2.16. Shown at the card's full
-width at that ratio they made the Android cards roughly twice the height of
-every other card, so each is cropped to a **square** window the full width of
-the screenshot, positioned to keep its caption and main subject. The panel
-takes the asset's ratio (`media: 'natural'` in `profile.ts`), so the crop in
-`scripts/android-shots.cjs` is what sets the card height — `SIDE` and the
-per-image `topFrac` are the two dials.
+Each screenshot is shown **whole and at its own proportions** — nothing cropped,
+nothing stretched.
 
-Two earlier versions of these cards: the 512×512 app icons, and the full
-uncropped screenshot over a blurred copy of itself.
+The raw files are about 1080×2337, or 1:2.16. At that ratio a full-width
+screenshot makes the card roughly twice the height of every other card, so the
+panel is a 1080×1080 square and the screenshot sits inside it at full panel
+height, coming out around 500px wide — just under half the panel. The remaining
+width carries a blurred, darkened copy of the same screenshot so the panel reads
+as one image rather than as empty margin.
+
+The panel takes the asset's ratio (`media: 'natural'` in `profile.ts`), so the
+canvas in `scripts/android-shots.cjs` sets the card height. Raising `H` makes
+the screenshot larger and the card taller; the two move together and there is no
+setting that enlarges one without the other.
+
+Earlier versions of these cards, for reference: the 512×512 app icons; the
+screenshot at full card width and natural ratio (correct, but a ~1200px card);
+and a square crop (shorter, but it cut the screenshot).
 
 
 ### The two generated panels
